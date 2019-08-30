@@ -136,38 +136,27 @@ namespace Primitivas_Graficas
         
         private void DecliveDDA(Point p1, Point p2)
         {
-            if(p1.X > p2.X)
-            {
-                Point aux = p1;
-                p1 = p2;
-                p2 = aux;
-            }
-            int Length, I;
+            int Length;
             double X, Y, Xinc, Yinc;
             Graphics g = CreateGraphics();
             
+
+
             //Guardando a maior largura
             Length = Math.Max((Math.Abs(p2.X - p1.X)),(Math.Abs(p2.Y - p1.Y)));
+
+            Xinc = (double)(p2.X - p1.X) / Length;
+            Yinc = (double)(p2.Y - p1.Y) / Length;
+
+            X = p1.X; Y = p1.Y;
+            while(X < p2.X)
+            {
+                g.FillRectangle(Brushes.Black, (int)Math.Round(X), (int)Math.Round(Y), 1, 1);
+                X = X + Xinc;
+                Y = Y + Yinc;
+            }
+
             
-            if(p1.X == p2.X)
-            {
-                for (Y = p1.Y; Y <= p2.Y; Y++)
-                    g.FillRectangle(Brushes.Black, (int)p1.X, (int)Y, 1, 1);
-                for (Y = p1.Y; Y >= p2.Y; Y--)
-                    g.FillRectangle(Brushes.Black, (int)p1.X, (int)Y, 1, 1);
-            }
-            else
-            {
-                Xinc = (double)(p2.X - p1.X) / Length;
-                Yinc = (double)(p2.Y - p1.Y) / Length;
-                X = p1.X; Y = p1.Y;
-                while (X < p2.X)
-                {
-                    g.FillRectangle(Brushes.Black, (int)Math.Round(X), (int)Math.Round(Y), 1, 1);
-                    X = X + Xinc;
-                    Y = Y + Yinc;
-                }
-            }
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -207,12 +196,6 @@ namespace Primitivas_Graficas
         private void RbBresenhan_CheckedChanged(object sender, EventArgs e)
         {
             btnLimpar.PerformClick();
-        }
-
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-            lbX.Text = "X: " + e.X;
-            lbY.Text = "Y: " + e.Y;
         }
     }
 }
