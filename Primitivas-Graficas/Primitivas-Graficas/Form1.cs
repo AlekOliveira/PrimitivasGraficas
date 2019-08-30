@@ -21,10 +21,8 @@ namespace Primitivas_Graficas
             InitializeComponent();
             bmp = new Bitmap(pbx.Size.Width, pbx.Size.Height);
             pbx.Image = bmp;
-
         }
-                
-        
+
         private void EQgeral(Point p1, Point p2)
         {
             Bitmap bmp1 = new Bitmap(pbx.Image);
@@ -148,11 +146,11 @@ namespace Primitivas_Graficas
                             bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
                     }
                 }
-                
+
             }
             pbx.Image = bmp1;
         }
-        
+
         private void DecliveDDA(Point p1, Point p2) //ook
         {
             Bitmap bmp1 = new Bitmap(pbx.Image);
@@ -164,11 +162,11 @@ namespace Primitivas_Graficas
             }
             int Length, I;
             double X, Y, Xinc, Yinc;
-            
+
             //Guardando a maior largura
-            Length = Math.Max((Math.Abs(p2.X - p1.X)),(Math.Abs(p2.Y - p1.Y)));
-            
-            if(p1.X == p2.X)
+            Length = Math.Max((Math.Abs(p2.X - p1.X)), (Math.Abs(p2.Y - p1.Y)));
+
+            if (p1.X == p2.X)
             {
                 for (Y = p1.Y; Y <= p2.Y; Y++)
                     bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
@@ -190,18 +188,46 @@ namespace Primitivas_Graficas
             pbx.Image = bmp1;
         }
 
-        
-
-        
-        
-
-
-        
-
-        private void pbx_MouseMove(object sender, MouseEventArgs e)
+        private void Bresenhan(Point p1, Point p2)
         {
-            lbX.Text = "X: " + e.X;
-            lbY.Text = "Y: " + e.Y;
+            Bitmap bmp1 = new Bitmap(pbx.Image);
+            int declive = 1;
+            int dx, dy, incE, incNE, d, x, y;
+            dx = p2.X - p1.X;
+            dy = p2.Y - p1.Y;
+
+            if(p1.X > p2.X)
+                Bresenhan(p2, p1);
+            else
+            {
+                if(p1.Y > p2.Y)
+                {
+                    dy = -dy;
+                    declive = -1;
+                }
+                // Constante de Bresenham 
+                incE = 2 * dy;
+                incNE = 2 * dy - 2 * dx;
+                d = 2 * dy - dx;
+                y = p1.Y;
+                for (x = p1.X; x <= p2.X; x++)
+                {
+                    bmp1.SetPixel(x, y, Color.Black);
+               
+                    if (d <= 0)
+                    {
+                        d += incE;
+                    }
+                    else
+                    {
+                        d += incNE;
+                        y += declive;
+                    }
+                }
+            }
+            
+            pbx.Image = bmp1;
+
         }
 
         private void pbx_MouseClick(object sender, MouseEventArgs e)
@@ -217,11 +243,27 @@ namespace Primitivas_Graficas
                         this.EQgeral(pontos[0], pontos[1]);
                     else if (rbDDA.Checked)
                         this.DecliveDDA(pontos[0], pontos[1]);
+                    else if (rbBresenhan.Checked)
+                        this.Bresenhan(pontos[0], pontos[1]);
 
                     pontos.Clear();
                 }
             }
         }
+
+        
+
+        
+        
+
+
+        
+
+        private void pbx_MouseMove(object sender, MouseEventArgs e)
+        {
+            lbX.Text = "X: " + e.X;
+            lbY.Text = "Y: " + e.Y;
+        }               
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
