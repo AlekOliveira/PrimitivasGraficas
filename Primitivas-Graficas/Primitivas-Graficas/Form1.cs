@@ -12,25 +12,22 @@ namespace Primitivas_Graficas
 {
     public partial class Form1 : Form
     {
-        List<Point> pontos = new List<Point>();
-        
+        private List<Point> pontos = new List<Point>();
+        private Bitmap bmp;
+
 
         public Form1()
         {
             InitializeComponent();
-            
-        }
+            bmp = new Bitmap(pbx.Size.Width, pbx.Size.Height);
+            pbx.Image = bmp;
 
-        private void LimpaForm()
-        {
-            Graphics g = CreateGraphics();
-            g.FillRectangle(Brushes.White, 0, 0, this.Width, this.Height);
         }
+                
         
         private void EQgeral(Point p1, Point p2)
         {
-            Graphics g = CreateGraphics();
-            Pen p = new Pen(Brushes.Black);
+            Bitmap bmp1 = new Bitmap(pbx.Image);
 
             double dy = p2.Y - p1.Y;
             double dx = p2.X - p1.X;
@@ -48,7 +45,7 @@ namespace Primitivas_Graficas
                     {
                         y = (double)(p1.Y + m * (x - p1.X));
                         y = Math.Round(y);
-                        g.FillRectangle(Brushes.Black, x, (int)y, 2, 2);
+                        bmp1.SetPixel(x, (int)y, Color.CadetBlue);
                     }
                 }
                 else //2º Octante
@@ -58,7 +55,7 @@ namespace Primitivas_Graficas
                     {
                         x = p1.X + (y - p1.Y) / m;
                         x = Math.Round(x);
-                        g.FillRectangle(Brushes.Black, (int)x, y, 2, 2);
+                        bmp1.SetPixel((int)x, y, Color.CadetBlue);
                     }
                 }
             }
@@ -71,7 +68,7 @@ namespace Primitivas_Graficas
                     {
                         y = (double)(p1.Y - m * (x - p1.X));
                         y = Math.Round(y);
-                        g.FillRectangle(Brushes.Black, x, (int)y, 2, 2);
+                        bmp1.SetPixel(x, (int)y, Color.CadetBlue);
                     }
 
                 }
@@ -82,7 +79,7 @@ namespace Primitivas_Graficas
                     {
                         x = p1.X - (y - p1.Y) / m;
                         x = Math.Round(x);
-                        g.FillRectangle(Brushes.Black, (int)x, y, 2, 2);
+                        bmp1.SetPixel((int)x, y, Color.CadetBlue);
                     }
                 }
             }
@@ -95,7 +92,7 @@ namespace Primitivas_Graficas
                     {
                         y = (double)(p1.Y + m * (x - p1.X));
                         y = Math.Round(y);
-                        g.FillRectangle(Brushes.Black, x, (int)y, 2, 2);
+                        bmp1.SetPixel(x, (int)y, Color.CadetBlue);
                     }
                 }
                 else //6º Octante
@@ -105,7 +102,7 @@ namespace Primitivas_Graficas
                     {
                         x = p1.X + (y - p1.Y) / m;
                         x = Math.Round(x);
-                        g.FillRectangle(Brushes.Black, (int)x, y, 2, 2);
+                        bmp1.SetPixel((int)x, y, Color.CadetBlue);
                     }
                 }
             }
@@ -118,7 +115,7 @@ namespace Primitivas_Graficas
                     {
                         y = (double)(p1.Y - m * (x - p1.X));
                         y = Math.Round(y);
-                        g.FillRectangle(Brushes.Black, x, (int)y, 2, 2);
+                        bmp1.SetPixel(x, (int)y, Color.CadetBlue);
                     }
                 }
                 else //7º Octante
@@ -128,38 +125,86 @@ namespace Primitivas_Graficas
                     {
                         x = p1.X - (y - p1.Y) / m;
                         x = Math.Round(x);
-                        g.FillRectangle(Brushes.Black, (int)x, y, 2, 2);
+                        bmp1.SetPixel((int)x, y, Color.CadetBlue);
                     }
                 }
             }
+            else
+            {
+                if (p1.X == p2.X) // corre X
+                {
+                    for (int Y = p1.Y; Y <= p2.Y; Y++)
+                        bmp1.SetPixel((int)p1.X, (int)Y, Color.Red);
+                    for (int Y = p1.Y; Y >= p2.Y; Y--)
+                        bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
+                }
+                else
+                {
+                    if (p1.Y == p2.Y) // Corre Y
+                    {
+                        for (int Y = p1.Y; Y <= p2.Y; Y++)
+                            bmp1.SetPixel((int)p1.X, (int)Y, Color.Red);
+                        for (int Y = p1.Y; Y >= p2.Y; Y--)
+                            bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
+                    }
+                }
+                
+            }
+            pbx.Image = bmp1;
         }
         
-        private void DecliveDDA(Point p1, Point p2)
+        private void DecliveDDA(Point p1, Point p2) //ook
         {
-            int Length;
+            Bitmap bmp1 = new Bitmap(pbx.Image);
+            if (p1.X > p2.X)
+            {
+                Point aux = p1;
+                p1 = p2;
+                p2 = aux;
+            }
+            int Length, I;
             double X, Y, Xinc, Yinc;
-            Graphics g = CreateGraphics();
             
-
-
             //Guardando a maior largura
             Length = Math.Max((Math.Abs(p2.X - p1.X)),(Math.Abs(p2.Y - p1.Y)));
-
-            Xinc = (double)(p2.X - p1.X) / Length;
-            Yinc = (double)(p2.Y - p1.Y) / Length;
-
-            X = p1.X; Y = p1.Y;
-            while(X < p2.X)
-            {
-                g.FillRectangle(Brushes.Black, (int)Math.Round(X), (int)Math.Round(Y), 1, 1);
-                X = X + Xinc;
-                Y = Y + Yinc;
-            }
-
             
+            if(p1.X == p2.X)
+            {
+                for (Y = p1.Y; Y <= p2.Y; Y++)
+                    bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
+                for (Y = p1.Y; Y >= p2.Y; Y--)
+                    bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
+            }
+            else
+            {
+                Xinc = (double)(p2.X - p1.X) / Length;
+                Yinc = (double)(p2.Y - p1.Y) / Length;
+                X = p1.X; Y = p1.Y;
+                while (X < p2.X)
+                {
+                    bmp1.SetPixel((int)Math.Round(X), (int)Math.Round(Y), Color.BlueViolet);
+                    X = X + Xinc;
+                    Y = Y + Yinc;
+                }
+            }
+            pbx.Image = bmp1;
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        
+
+        
+        
+
+
+        
+
+        private void pbx_MouseMove(object sender, MouseEventArgs e)
+        {
+            lbX.Text = "X: " + e.X;
+            lbY.Text = "Y: " + e.Y;
+        }
+
+        private void pbx_MouseClick(object sender, MouseEventArgs e)
         {
             Graphics g = CreateGraphics();
             if (e.Button == MouseButtons.Left)
@@ -172,15 +217,16 @@ namespace Primitivas_Graficas
                         this.EQgeral(pontos[0], pontos[1]);
                     else if (rbDDA.Checked)
                         this.DecliveDDA(pontos[0], pontos[1]);
-                      
+
                     pontos.Clear();
                 }
-            }   
+            }
         }
 
-        private void BtnLimpar_Click(object sender, EventArgs e)
+        private void btnLimpar_Click(object sender, EventArgs e)
         {
-            LimpaForm();
+            bmp = new Bitmap(pbx.Size.Width, pbx.Size.Height);
+            pbx.Image = bmp;
         }
 
         private void RbEqReal_CheckedChanged(object sender, EventArgs e)
@@ -195,7 +241,8 @@ namespace Primitivas_Graficas
 
         private void RbBresenhan_CheckedChanged(object sender, EventArgs e)
         {
-            btnLimpar.PerformClick();
+            btnLimpar.PerformClick();            
         }
+
     }
 }

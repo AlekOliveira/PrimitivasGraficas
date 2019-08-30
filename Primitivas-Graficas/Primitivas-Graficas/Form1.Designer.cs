@@ -29,13 +29,17 @@
         private void InitializeComponent()
         {
             this.groupBoxRetas = new System.Windows.Forms.GroupBox();
+            this.rbBresenhan = new System.Windows.Forms.RadioButton();
             this.rbDDA = new System.Windows.Forms.RadioButton();
             this.rbEqReal = new System.Windows.Forms.RadioButton();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbBresenhan = new System.Windows.Forms.RadioButton();
+            this.lbY = new System.Windows.Forms.Label();
+            this.lbX = new System.Windows.Forms.Label();
+            this.pbx = new System.Windows.Forms.PictureBox();
             this.groupBoxRetas.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbx)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxRetas
@@ -49,6 +53,18 @@
             this.groupBoxRetas.TabIndex = 0;
             this.groupBoxRetas.TabStop = false;
             this.groupBoxRetas.Text = "Retas";
+            // 
+            // rbBresenhan
+            // 
+            this.rbBresenhan.AutoSize = true;
+            this.rbBresenhan.Location = new System.Drawing.Point(17, 66);
+            this.rbBresenhan.Name = "rbBresenhan";
+            this.rbBresenhan.Size = new System.Drawing.Size(76, 17);
+            this.rbBresenhan.TabIndex = 2;
+            this.rbBresenhan.TabStop = true;
+            this.rbBresenhan.Text = "Bresenhan";
+            this.rbBresenhan.UseVisualStyleBackColor = true;
+            this.rbBresenhan.CheckedChanged += new System.EventHandler(this.RbBresenhan_CheckedChanged);
             // 
             // rbDDA
             // 
@@ -77,49 +93,69 @@
             // btnLimpar
             // 
             this.btnLimpar.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLimpar.Location = new System.Drawing.Point(25, 168);
+            this.btnLimpar.Location = new System.Drawing.Point(25, 387);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpar.TabIndex = 1;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = false;
-            this.btnLimpar.Click += new System.EventHandler(this.BtnLimpar_Click);
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.groupBox2.Controls.Add(this.lbY);
+            this.groupBox2.Controls.Add(this.lbX);
             this.groupBox2.Controls.Add(this.groupBoxRetas);
             this.groupBox2.Controls.Add(this.btnLimpar);
-            this.groupBox2.Location = new System.Drawing.Point(785, -5);
+            this.groupBox2.Location = new System.Drawing.Point(800, -7);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(215, 552);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
-            // rbBresenhan
+            // lbY
             // 
-            this.rbBresenhan.AutoSize = true;
-            this.rbBresenhan.Location = new System.Drawing.Point(17, 66);
-            this.rbBresenhan.Name = "rbBresenhan";
-            this.rbBresenhan.Size = new System.Drawing.Size(76, 17);
-            this.rbBresenhan.TabIndex = 2;
-            this.rbBresenhan.TabStop = true;
-            this.rbBresenhan.Text = "Bresenhan";
-            this.rbBresenhan.UseVisualStyleBackColor = true;
-            this.rbBresenhan.CheckedChanged += new System.EventHandler(this.RbBresenhan_CheckedChanged);
+            this.lbY.AutoSize = true;
+            this.lbY.Location = new System.Drawing.Point(22, 510);
+            this.lbY.Name = "lbY";
+            this.lbY.Size = new System.Drawing.Size(20, 13);
+            this.lbY.TabIndex = 3;
+            this.lbY.Text = "Y: ";
+            // 
+            // lbX
+            // 
+            this.lbX.AutoSize = true;
+            this.lbX.Location = new System.Drawing.Point(22, 482);
+            this.lbX.Name = "lbX";
+            this.lbX.Size = new System.Drawing.Size(20, 13);
+            this.lbX.TabIndex = 2;
+            this.lbX.Text = "X: ";
+            // 
+            // pbx
+            // 
+            this.pbx.Location = new System.Drawing.Point(12, 12);
+            this.pbx.Name = "pbx";
+            this.pbx.Size = new System.Drawing.Size(766, 522);
+            this.pbx.TabIndex = 3;
+            this.pbx.TabStop = false;
+            this.pbx.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pbx_MouseClick);
+            this.pbx.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbx_MouseMove);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 546);
+            this.Controls.Add(this.pbx);
             this.Controls.Add(this.groupBox2);
             this.Name = "Form1";
             this.Text = "CG-Primitivas Gráficas";
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseClick);
             this.groupBoxRetas.ResumeLayout(false);
             this.groupBoxRetas.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbx)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -132,6 +168,9 @@
         private System.Windows.Forms.RadioButton rbEqReal;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rbBresenhan;
+        private System.Windows.Forms.Label lbY;
+        private System.Windows.Forms.Label lbX;
+        private System.Windows.Forms.PictureBox pbx;
     }
 }
 
