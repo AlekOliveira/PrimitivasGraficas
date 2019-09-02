@@ -190,6 +190,16 @@ namespace Primitivas_Graficas
 
         private void Bresenhan(Point p1, Point p2)
         {
+            if (Math.Abs(p2.Y - p1.Y) > Math.Abs(p2.X - p1.X))
+            {
+                Point aux = p1;
+                p1.X = aux.Y;
+                p1.Y = aux.X;
+                aux = p2;
+                p2.X = aux.Y;
+                p2.Y = aux.X;
+                Bresenhan(p1, p2);
+            }
             Bitmap bmp1 = new Bitmap(pbx.Image);
             int declive = 1;
             int dx, dy, incE, incNE, d, x, y;
@@ -197,7 +207,7 @@ namespace Primitivas_Graficas
             dy = p2.Y - p1.Y;
 
             if(p1.X > p2.X)
-                Bresenhan(p2, p1);
+                Bresenhan(p2, p1);           
             else
             {
                 if(p1.Y > p2.Y)
@@ -234,8 +244,7 @@ namespace Primitivas_Graficas
         {
             Graphics g = CreateGraphics();
             if (e.Button == MouseButtons.Left)
-            {
-                g.FillRectangle(Brushes.Red, e.X, e.Y, 8, 8);
+            {   
                 pontos.Add(new Point(e.X, e.Y));
                 if (pontos.Count == 2)
                 {
