@@ -132,18 +132,18 @@ namespace Primitivas_Graficas
                 if (p1.X == p2.X) // corre X
                 {
                     for (int Y = p1.Y; Y <= p2.Y; Y++)
-                        bmp1.SetPixel((int)p1.X, (int)Y, Color.Red);
+                        bmp1.SetPixel((int)p1.X, (int)Y, Color.CadetBlue);
                     for (int Y = p1.Y; Y >= p2.Y; Y--)
-                        bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
+                        bmp1.SetPixel((int)p1.X, (int)Y, Color.CadetBlue);
                 }
                 else
                 {
                     if (p1.Y == p2.Y) // Corre Y
                     {
                         for (int Y = p1.Y; Y <= p2.Y; Y++)
-                            bmp1.SetPixel((int)p1.X, (int)Y, Color.Red);
+                            bmp1.SetPixel((int)p1.X, (int)Y, Color.CadetBlue);
                         for (int Y = p1.Y; Y >= p2.Y; Y--)
-                            bmp1.SetPixel((int)p1.X, (int)Y, Color.Black);
+                            bmp1.SetPixel((int)p1.X, (int)Y, Color.CadetBlue);
                     }
                 }
 
@@ -180,7 +180,7 @@ namespace Primitivas_Graficas
                 X = p1.X; Y = p1.Y;
                 while (X < p2.X)
                 {
-                    bmp1.SetPixel((int)Math.Round(X), (int)Math.Round(Y), Color.BlueViolet);
+                    bmp1.SetPixel((int)Math.Round(X), (int)Math.Round(Y), Color.Black);
                     X = X + Xinc;
                     Y = Y + Yinc;
                 }
@@ -190,52 +190,75 @@ namespace Primitivas_Graficas
 
         private void Bresenhan(Point p1, Point p2)
         {
-            if (Math.Abs(p2.Y - p1.Y) > Math.Abs(p2.X - p1.X))
-            {
-                Point aux = p1;
-                p1.X = aux.Y;
-                p1.Y = aux.X;
-                aux = p2;
-                p2.X = aux.Y;
-                p2.Y = aux.X;
-                Bresenhan(p1, p2);
-            }
             Bitmap bmp1 = new Bitmap(pbx.Image);
-            int declive = 1;
-            int dx, dy, incE, incNE, d, x, y;
+            int declive;
+            int dx, dy, incNE, incE, d, x, y;
             dx = p2.X - p1.X;
             dy = p2.Y - p1.Y;
-
-            if(p1.X > p2.X)
-                Bresenhan(p2, p1);           
-            else
+            if(Math.Abs(dx) >= Math.Abs(dy))
             {
-                if(p1.Y > p2.Y)
+                if (p2.X < p1.X)
+                    Bresenhan(p2, p1);
+                else
                 {
-                    dy = -dy;
-                    declive = -1;
-                }
-                // Constante de Bresenham 
-                incE = 2 * dy;
-                incNE = 2 * dy - 2 * dx;
-                d = 2 * dy - dx;
-                y = p1.Y;
-                for (x = p1.X; x <= p2.X; x++)
-                {
-                    bmp1.SetPixel(x, y, Color.Black);
-               
-                    if (d <= 0)
+                    if (dy <= 0)
                     {
-                        d += incE;
+                        declive = -1;
+                        dy = -dy;
                     }
                     else
+                        declive = 1;
+                    incE = 2 * dy;
+                    incNE = 2 * dy - 2 * dx; ;
+                    d = 2 * dy - dx;
+                    y = p1.Y;
+                    for(x = p1.X; x <= p2.X; x++)
                     {
-                        d += incNE;
-                        y += declive;
+                        bmp1.SetPixel(x, y, Color.Coral);
+                        if (d <= 0)
+                            d += incE;
+                        else
+                        {
+                            d += incNE;
+                            y += declive;
+                        }
                     }
+
                 }
             }
-            
+            else
+            {
+                if (p2.Y < p1.Y)
+                    Bresenhan(p2, p1);
+                else
+                {
+                    if (dx < 0)
+                    {
+                        declive = -1;
+                        dx = -dy;
+                    }
+                    else
+                        declive = 1;
+                    incE = 2 * dx;
+                    incNE = 2 * dx - 2 * dy;
+                    d = 2 * dx - dy;
+                    x = p1.X;
+                    for(y=p1.Y; y<= p2.Y; y++)
+                    {
+                        bmp1.SetPixel(x, y, Color.Coral);
+                        if (d <= 0)
+                            d += incE;
+                        else
+                        {
+                            d += incNE;
+                            x += declive;
+                        }
+                    }
+
+                }
+                
+
+            }
             pbx.Image = bmp1;
 
         }
@@ -248,37 +271,22 @@ namespace Primitivas_Graficas
                 pontos.Add(new Point(e.X, e.Y));
                 if (pontos.Count == 2)
                 {
-                    if (rbEqReal.Checked)
+                    if (RbRetaReal.Checked)
                         this.EQgeral(pontos[0], pontos[1]);
-                    else if (rbDDA.Checked)
+                    else if (RbRetaDDA.Checked)
                         this.DecliveDDA(pontos[0], pontos[1]);
-                    else if (rbBresenhan.Checked)
+                    else if (RbRetaBresenhan.Checked)
                         this.Bresenhan(pontos[0], pontos[1]);
 
                     pontos.Clear();
                 }
             }
         }
-
-        
-
-        
-        
-
-
-        
-
         private void pbx_MouseMove(object sender, MouseEventArgs e)
         {
             lbX.Text = "X: " + e.X;
             lbY.Text = "Y: " + e.Y;
         }               
-
-        private void btnLimpar_Click(object sender, EventArgs e)
-        {
-            bmp = new Bitmap(pbx.Size.Width, pbx.Size.Height);
-            pbx.Image = bmp;
-        }
 
         private void RbEqReal_CheckedChanged(object sender, EventArgs e)
         {
@@ -295,5 +303,10 @@ namespace Primitivas_Graficas
             btnLimpar.PerformClick();            
         }
 
+        private void BtnLimpar_Click(object sender, EventArgs e)
+        {
+            bmp = new Bitmap(pbx.Size.Width, pbx.Size.Height);
+            pbx.Image = bmp;
+        }
     }
 }
