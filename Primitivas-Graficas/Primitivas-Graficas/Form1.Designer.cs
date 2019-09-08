@@ -50,7 +50,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.BtExcluiPoligno = new System.Windows.Forms.Button();
             this.BtNovoPoligno = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvPontos = new System.Windows.Forms.DataGridView();
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CbPolignos = new System.Windows.Forms.ComboBox();
@@ -64,7 +64,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPoligonos)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPontos)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxRetas
@@ -285,7 +285,7 @@
             this.groupBox4.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.groupBox4.Controls.Add(this.BtExcluiPoligno);
             this.groupBox4.Controls.Add(this.BtNovoPoligno);
-            this.groupBox4.Controls.Add(this.dataGridView1);
+            this.groupBox4.Controls.Add(this.dgvPontos);
             this.groupBox4.Controls.Add(this.CbPolignos);
             this.groupBox4.Location = new System.Drawing.Point(801, 3);
             this.groupBox4.Name = "groupBox4";
@@ -311,17 +311,21 @@
             this.BtNovoPoligno.TabIndex = 2;
             this.BtNovoPoligno.Text = "Novo";
             this.BtNovoPoligno.UseVisualStyleBackColor = true;
+            this.BtNovoPoligno.Click += new System.EventHandler(this.BtNovoPoligno_Click);
             // 
-            // dataGridView1
+            // dgvPontos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvPontos.AllowUserToAddRows = false;
+            this.dgvPontos.AllowUserToDeleteRows = false;
+            this.dgvPontos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPontos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.X,
             this.Y});
-            this.dataGridView1.Location = new System.Drawing.Point(6, 121);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(146, 284);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvPontos.Location = new System.Drawing.Point(6, 121);
+            this.dgvPontos.Name = "dgvPontos";
+            this.dgvPontos.ReadOnly = true;
+            this.dgvPontos.Size = new System.Drawing.Size(146, 284);
+            this.dgvPontos.TabIndex = 1;
             // 
             // X
             // 
@@ -366,7 +370,7 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxPoligonos)).EndInit();
             this.groupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPontos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -394,7 +398,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button BtExcluiPoligno;
         private System.Windows.Forms.Button BtNovoPoligno;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvPontos;
         private System.Windows.Forms.DataGridViewTextBoxColumn X;
         private System.Windows.Forms.DataGridViewTextBoxColumn Y;
         private System.Windows.Forms.ComboBox CbPolignos;

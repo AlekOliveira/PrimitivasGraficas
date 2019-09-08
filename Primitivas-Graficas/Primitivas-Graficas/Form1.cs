@@ -13,12 +13,14 @@ namespace Primitivas_Graficas
     public partial class Form1 : Form
     {
         private List<Point> pontos = new List<Point>();
-
+        private List<Poligono> Lpoli = new List<Poligono>();
 
         public Form1()
         {
             InitializeComponent();
             pbxRetas.Image = new Bitmap(pbxRetas.Size.Width, pbxRetas.Size.Height);
+            pbxPoligonos.Image = new Bitmap(pbxPoligonos.Size.Width, pbxPoligonos.Size.Height);
+            
         }
         private void TabControl1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -71,21 +73,48 @@ namespace Primitivas_Graficas
             pbxRetas.Image = new Bitmap(pbxRetas.Size.Width, pbxRetas.Size.Height);
         }
 
-        private void PbxPoligonos_MouseClick(object sender, MouseEventArgs e)
-        {
-            if(e.Button == MouseButtons.Left)
-            {
 
-            }
-            else if(e.Button == MouseButtons.Right) //FECHA O POLIGONO
-            {
-                
-            }
-        }
 
-       
+
+
+
 
 
         //INTERFACE POLIGONOS
+        private void BtNovoPoligno_Click(object sender, EventArgs e)
+        {
+            Poligono p = new Poligono(Lpoli.Count);
+            Lpoli.Add(p);            
+            CbPolignos.Items.Add(p.Rotulo);
+            CbPolignos.SelectedIndex = CbPolignos.Items.Count-1;
+        }
+
+        private void PbxPoligonos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(CbPolignos.SelectedIndex > -1)
+            {
+               
+
+                if (e.Button == MouseButtons.Left)
+                {
+                    pontos.Add(e.Location);
+                    Lpoli[(int)CbPolignos.SelectedItem].AddPonto(e.Location); //add o ponto dentro do obj poligono
+                    dgvPontos.Rows.Add("dd");
+                }
+                    
+
+                if(pontos.Count == 2)
+                {
+                    Primitivas.DecliveDDA(pontos[0], pontos[1], pbxPoligonos);
+                   
+                    pontos[0] = pontos[1]; //O ultimo ponto se transforma em um novo inicial
+                    pontos.RemoveAt(1);
+                }                    
+            }
+
+            
+        }
+
+        
     }
 }

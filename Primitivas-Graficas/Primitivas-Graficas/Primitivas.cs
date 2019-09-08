@@ -249,7 +249,6 @@ namespace Primitivas_Graficas
             }
             pbx.Image = b;
         }
-
     }
 
   
