@@ -52,10 +52,10 @@ namespace Primitivas_Graficas
 
        
         public int Rotulo { get => rotulo; set => rotulo = value; }
-
+        public List<Point> Pontos { get => pontos;}
         public void AddPonto(Point p)
         {
-            this.pontos.Add(p);
+            this.Pontos.Add(p);
         }
     }
 }

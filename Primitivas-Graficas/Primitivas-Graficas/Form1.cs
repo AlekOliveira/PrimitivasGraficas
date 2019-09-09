@@ -12,6 +12,7 @@ namespace Primitivas_Graficas
 {
     public partial class Form1 : Form
     {
+        private int CountPoli = 0;
         private List<Point> pontos = new List<Point>();
         private List<Poligono> Lpoli = new List<Poligono>();
 
@@ -81,28 +82,23 @@ namespace Primitivas_Graficas
 
 
         //INTERFACE POLIGONOS
-        private void BtNovoPoligno_Click(object sender, EventArgs e)
-        {
-            Poligono p = new Poligono(Lpoli.Count);
-            Lpoli.Add(p);            
-            CbPolignos.Items.Add(p.Rotulo);
-            CbPolignos.SelectedIndex = CbPolignos.Items.Count-1;
-        }
+        
 
         private void PbxPoligonos_MouseClick(object sender, MouseEventArgs e)
         {
             if(CbPolignos.SelectedIndex > -1)
-            {
-               
-
+            {     
                 if (e.Button == MouseButtons.Left)
                 {
                     pontos.Add(e.Location);
-                    Lpoli[(int)CbPolignos.SelectedItem].AddPonto(e.Location); //add o ponto dentro do obj poligono
-                    dgvPontos.Rows.Add("dd");
-                }
                     
-
+                    int pos = Lpoli.FindIndex(x => x.Rotulo == ((Poligono)CbPolignos.SelectedItem).Rotulo); //Busca a posição do poli selecionado na lista de polis
+                    Lpoli[pos].AddPonto(e.Location); //add o ponto dentro do obj poligono
+                    dgvPontos.Rows.Add(e.X.ToString());
+                    dgvPontos.Rows[dgvPontos.Rows.Count-1].Cells[0].Value = e.X.ToString();
+                    dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString(); 
+                }
+               
                 if(pontos.Count == 2)
                 {
                     Primitivas.DecliveDDA(pontos[0], pontos[1], pbxPoligonos);
@@ -110,11 +106,48 @@ namespace Primitivas_Graficas
                     pontos[0] = pontos[1]; //O ultimo ponto se transforma em um novo inicial
                     pontos.RemoveAt(1);
                 }                    
-            }
-
-            
+            }            
         }
 
-        
+        private void BtExcluiPoligno_Click(object sender, EventArgs e)
+        {
+            if(CbPolignos.SelectedIndex > -1 && Lpoli.Count > 0)
+            {
+                Lpoli.RemoveAt((int)CbPolignos.SelectedIndex);
+                CbPolignos.Items.Remove(CbPolignos.SelectedItem);
+                CbPolignos.Text = "";
+                pbxPoligonos.Image = new Bitmap(pbxPoligonos.Size.Width, pbxPoligonos.Size.Height);                
+            }            
+        }
+        private void ClearDGV()
+        {
+            dgvPontos.DataSource = null;
+            dgvPontos.Rows.Clear();
+            dgvPontos.Refresh();
+        }
+        private void BtNovoPoligno_Click(object sender, EventArgs e)
+        {
+            Poligono p = new Poligono(CountPoli++);
+            Lpoli.Add(p);
+            CbPolignos.Items.Add(p);
+            CbPolignos.SelectedIndex = CbPolignos.Items.Count - 1;
+            ClearDGV();
+        }
+
+       
+
+        private void CbPolignos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[0].Value = e.X.ToString();
+            //dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString();
+
+            Poligono poli = Lpoli.Find(x => x.Rotulo == ((Poligono)CbPolignos.SelectedItem).Rotulo);
+            foreach (Point p in poli.Pontos)
+            {
+                MessageBox.Show(p.X.ToString() + " " + p.Y.ToString());
+            }
+
+
+        }
     }
 }

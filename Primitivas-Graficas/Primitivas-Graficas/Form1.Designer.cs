@@ -302,6 +302,7 @@
             this.BtExcluiPoligno.TabIndex = 3;
             this.BtExcluiPoligno.Text = "Excluir";
             this.BtExcluiPoligno.UseVisualStyleBackColor = true;
+            this.BtExcluiPoligno.Click += new System.EventHandler(this.BtExcluiPoligno_Click);
             // 
             // BtNovoPoligno
             // 
@@ -324,6 +325,7 @@
             this.dgvPontos.Location = new System.Drawing.Point(6, 121);
             this.dgvPontos.Name = "dgvPontos";
             this.dgvPontos.ReadOnly = true;
+            this.dgvPontos.RowHeadersVisible = false;
             this.dgvPontos.Size = new System.Drawing.Size(146, 284);
             this.dgvPontos.TabIndex = 1;
             // 
@@ -331,12 +333,14 @@
             // 
             this.X.HeaderText = "X";
             this.X.Name = "X";
+            this.X.ReadOnly = true;
             this.X.Width = 45;
             // 
             // Y
             // 
             this.Y.HeaderText = "Y";
             this.Y.Name = "Y";
+            this.Y.ReadOnly = true;
             this.Y.Width = 45;
             // 
             // CbPolignos
@@ -346,6 +350,7 @@
             this.CbPolignos.Name = "CbPolignos";
             this.CbPolignos.Size = new System.Drawing.Size(146, 21);
             this.CbPolignos.TabIndex = 0;
+            this.CbPolignos.SelectedIndexChanged += new System.EventHandler(this.CbPolignos_SelectedIndexChanged);
             // 
             // Form1
             // 
