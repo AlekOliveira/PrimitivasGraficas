@@ -251,8 +251,86 @@ namespace Primitivas_Graficas
         }
     }
 
-  
 
+    //Bresenhan Tulio
+    /*private void BresenhamTulio(int x1, int x2, int y1, int y2, Bitmap bmp) /// NAO FUNCIONA AINDA
+    {
+        int dx, dy, incE, incNE, declive, d, x, y;
+
+        dx = (int)(x2 - x1);
+        dy = (int)(y2 - y1);
+        declive = 1;
+
+        if (Math.Abs(dx) > Math.Abs(dy)) // FOR EM RELAÇÃO A X
+        {
+            if (x1 > x2)
+            {
+                // INVERTE OS PONTOS E REFAZ AS PERGUNTAS
+                BresenhamTulio(x2, x1, y2, y1, bmp);
+            }
+            else
+            {
+                if (dy < 0)
+                {
+                    // X, -Y
+                    declive = -1;
+                    dy = -dy;
+                }
+
+                incE = 2 * dy;
+                incNE = 2 * dy - 2 * dx;
+                d = incE - dx;
+
+                y = (int)y1;
+
+                for (x = (int)x1; x <= x2; x++)
+                {
+                    bmp.SetPixel(x, y, Color.Black);
+
+                    if (d < 0)
+                        d += incE;
+                    else
+                    {
+                        d += incNE;
+                        y += declive;
+                    }
+                }
+            }
+        }
+        else // FOR EM RELAÇÃO A Y
+        {
+            if (y1 > y2)
+            {
+                BresenhamTulio(x2, x1, y2, y1, bmp);
+            }
+            else
+            {
+                if (dx < 0)
+                {
+                    declive = -1;
+                    dx = -dx;
+                }
+
+                incE = 2 * dx;
+                incNE = 2 * dx - 2 * dy;
+                d = incE - dy;
+
+                x = (int)x1;
+                for (y = (int)y1; y <= y2; ++y)
+                {
+                    bmp.SetPixel(x, y, Color.Black);
+                    if (d < 0) // escolhe incE
+                        d += incE;
+                    else
+                    {   // escolhe incNE
+                        d += incNE;
+                        x += declive;
+                    }
+                }
+            }
+        }
+
+    }*/
 
 
 }
