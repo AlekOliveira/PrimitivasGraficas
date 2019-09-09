@@ -12,11 +12,13 @@ namespace Primitivas_Graficas
 
         private List<Point> pontos = new List<Point>();
         private int rotulo;
+        private bool fechado;
         private int[][] MA = new int[3][];
 
         public Poligono(int rotulo)
         {            
-            this.Rotulo = rotulo;
+            this.rotulo = rotulo;
+            this.Fechado = false;
             MA[0] = new int[3];
             MA[1] = new int[3];
             MA[2] = new int[3];
@@ -35,6 +37,7 @@ namespace Primitivas_Graficas
         {
             this.pontos = pontos;
             this.rotulo = rotulo;
+            this.Fechado = false;
             MA[0] = new int[3];
             MA[1] = new int[3];
             MA[2] = new int[3];
@@ -53,6 +56,8 @@ namespace Primitivas_Graficas
        
         public int Rotulo { get => rotulo; set => rotulo = value; }
         public List<Point> Pontos { get => pontos;}
+        public bool Fechado { get => fechado; set => fechado = value; }
+
         public void AddPonto(Point p)
         {
             this.Pontos.Add(p);

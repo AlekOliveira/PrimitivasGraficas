@@ -292,7 +292,7 @@
             this.groupBox4.Size = new System.Drawing.Size(159, 539);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Polignos";
+            this.groupBox4.Text = "Poligonos";
             // 
             // BtExcluiPoligno
             // 

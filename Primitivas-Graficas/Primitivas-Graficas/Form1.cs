@@ -86,8 +86,8 @@ namespace Primitivas_Graficas
 
         private void PbxPoligonos_MouseClick(object sender, MouseEventArgs e)
         {
-            if(CbPolignos.SelectedIndex > -1)
-            {     
+            if(CbPolignos.SelectedIndex > -1 && ((Poligono)CbPolignos.SelectedItem).Fechado == false)
+            {
                 if (e.Button == MouseButtons.Left)
                 {
                     pontos.Add(e.Location);
@@ -98,56 +98,78 @@ namespace Primitivas_Graficas
                     dgvPontos.Rows[dgvPontos.Rows.Count-1].Cells[0].Value = e.X.ToString();
                     dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString(); 
                 }
-               
-                if(pontos.Count == 2)
+                else if(e.Button == MouseButtons.Right)
+                {
+                    pontos.Add(e.Location);
+
+                    int pos = Lpoli.FindIndex(x => x.Rotulo == ((Poligono)CbPolignos.SelectedItem).Rotulo); //Busca a posição do poli selecionado na lista de polis
+                    Lpoli[pos].AddPonto(e.Location); //add o ponto dentro do obj poligono
+                    dgvPontos.Rows.Add(e.X.ToString());
+                    dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[0].Value = e.X.ToString();
+                    dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString();
+
+                    Primitivas.DecliveDDA(e.Location, Lpoli[pos].Pontos[0], pbxPoligonos);
+                    ((Poligono)CbPolignos.SelectedItem).Fechado = true;
+                }
+
+                if (pontos.Count == 2)
                 {
                     Primitivas.DecliveDDA(pontos[0], pontos[1], pbxPoligonos);
-                   
+
                     pontos[0] = pontos[1]; //O ultimo ponto se transforma em um novo inicial
                     pontos.RemoveAt(1);
-                }                    
-            }            
-        }
+                }
 
-        private void BtExcluiPoligno_Click(object sender, EventArgs e)
-        {
-            if(CbPolignos.SelectedIndex > -1 && Lpoli.Count > 0)
-            {
-                Lpoli.RemoveAt((int)CbPolignos.SelectedIndex);
-                CbPolignos.Items.Remove(CbPolignos.SelectedItem);
-                CbPolignos.Text = "";
-                pbxPoligonos.Image = new Bitmap(pbxPoligonos.Size.Width, pbxPoligonos.Size.Height);                
+
             }            
-        }
-        private void ClearDGV()
+        }      
+        private void ClearTelaPoligono()
         {
             dgvPontos.DataSource = null;
             dgvPontos.Rows.Clear();
             dgvPontos.Refresh();
+            pbxPoligonos.Image = new Bitmap(pbxPoligonos.Size.Width, pbxPoligonos.Size.Height); // limpa a tela
         }
         private void BtNovoPoligno_Click(object sender, EventArgs e)
         {
+            pontos.Clear();
             Poligono p = new Poligono(CountPoli++);
             Lpoli.Add(p);
             CbPolignos.Items.Add(p);
             CbPolignos.SelectedIndex = CbPolignos.Items.Count - 1;
-            ClearDGV();
+            ClearTelaPoligono();
         }
-
-       
-
+        private void BtExcluiPoligno_Click(object sender, EventArgs e)
+        {
+            if (CbPolignos.SelectedIndex > -1 && Lpoli.Count > 0)
+            {
+                Lpoli.RemoveAt((int)CbPolignos.SelectedIndex);
+                CbPolignos.Items.Remove(CbPolignos.SelectedItem);
+                CbPolignos.Text = "";
+                ClearTelaPoligono();
+            }
+        }
         private void CbPolignos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[0].Value = e.X.ToString();
-            //dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString();
-
+            pontos.Clear();
+            ClearTelaPoligono();
             Poligono poli = Lpoli.Find(x => x.Rotulo == ((Poligono)CbPolignos.SelectedItem).Rotulo);
             foreach (Point p in poli.Pontos)
             {
-                MessageBox.Show(p.X.ToString() + " " + p.Y.ToString());
+                dgvPontos.Rows.Add(p.X.ToString());
+                dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[0].Value = p.X.ToString();
+                dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = p.Y.ToString();
+
+                pontos.Add(p);
+                if(pontos.Count == 2)
+                {
+                    Primitivas.DecliveDDA(pontos[0], pontos[1], pbxPoligonos);
+                    pontos[0] = pontos[1];
+                    pontos.RemoveAt(1);
+                }                
             }
-
-
+            if(((Poligono)CbPolignos.SelectedItem).Fechado == true) //Se o poligono estiver completo, a ligação do Pi com Pf é feita
+                Primitivas.DecliveDDA(((Poligono)CbPolignos.SelectedItem).Pontos[0], ((Poligono)CbPolignos.SelectedItem).Pontos[((Poligono)CbPolignos.SelectedItem).Pontos.Count-1], pbxPoligonos);
         }
     }
 }
