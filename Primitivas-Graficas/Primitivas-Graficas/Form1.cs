@@ -33,6 +33,8 @@ namespace Primitivas_Graficas
         }
 
 
+
+
         //INTERFACE PRIMITIVAS GRÁFICAS
         private void PbxRetas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -76,14 +78,7 @@ namespace Primitivas_Graficas
 
 
 
-
-
-
-
-
-        //INTERFACE POLIGONOS
-        
-
+        //INTERFACE POLIGONOS        
         private void PbxPoligonos_MouseClick(object sender, MouseEventArgs e)
         {
             if(CbPolignos.SelectedIndex > -1 && ((Poligono)CbPolignos.SelectedItem).Fechado == false)
