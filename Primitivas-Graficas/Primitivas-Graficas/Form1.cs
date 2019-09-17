@@ -49,6 +49,22 @@ namespace Primitivas_Graficas
                         Primitivas.DecliveDDA(pontos[0], pontos[1], pbxRetas);
                     else if (RbRetaBresenhan.Checked)
                         Primitivas.Bresenhan(pontos[0], pontos[1], pbxRetas);
+                    else if (RbCircReal.Checked)
+                    {
+                        double raio = Math.Sqrt(Math.Pow(pontos[1].X - pontos[0].X, 2) + Math.Pow(pontos[1].Y - pontos[0].Y, 2));
+                        Primitivas.CircGeral(pontos[0], pbxRetas,raio);
+                    }
+                    else if (RbCircTrig.Checked)
+                    {
+                        double raio = Math.Sqrt(Math.Pow(pontos[1].X - pontos[0].X, 2) + Math.Pow(pontos[1].Y - pontos[0].Y, 2));
+                        Primitivas.CircTrig(pontos[0], pbxRetas, raio);
+                    }
+                    else if (RbCircPtMedio.Checked)
+                    {
+                        double raio = Math.Sqrt(Math.Pow(pontos[1].X - pontos[0].X, 2) + Math.Pow(pontos[1].Y - pontos[0].Y, 2));
+                        Primitivas.PontoMedio(pontos[0], pbxRetas, raio);
+                    }
+
 
                     pontos.Clear();
                 }
@@ -81,19 +97,19 @@ namespace Primitivas_Graficas
         //INTERFACE POLIGONOS        
         private void PbxPoligonos_MouseClick(object sender, MouseEventArgs e)
         {
-            if(CbPolignos.SelectedIndex > -1 && ((Poligono)CbPolignos.SelectedItem).Fechado == false)
+            if (CbPolignos.SelectedIndex > -1 && ((Poligono)CbPolignos.SelectedItem).Fechado == false)
             {
                 if (e.Button == MouseButtons.Left)
                 {
                     pontos.Add(e.Location);
-                    
+
                     int pos = Lpoli.FindIndex(x => x.Rotulo == ((Poligono)CbPolignos.SelectedItem).Rotulo); //Busca a posição do poli selecionado na lista de polis
                     Lpoli[pos].AddPonto(e.Location); //add o ponto dentro do obj poligono
                     dgvPontos.Rows.Add(e.X.ToString());
-                    dgvPontos.Rows[dgvPontos.Rows.Count-1].Cells[0].Value = e.X.ToString();
-                    dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString(); 
+                    dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[0].Value = e.X.ToString();
+                    dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = e.Y.ToString();
                 }
-                else if(e.Button == MouseButtons.Right)
+                else if (e.Button == MouseButtons.Right)
                 {
                     pontos.Add(e.Location);
 
@@ -110,14 +126,11 @@ namespace Primitivas_Graficas
                 if (pontos.Count == 2)
                 {
                     Primitivas.DecliveDDA(pontos[0], pontos[1], pbxPoligonos);
-
                     pontos[0] = pontos[1]; //O ultimo ponto se transforma em um novo inicial
                     pontos.RemoveAt(1);
                 }
-
-
-            }            
-        }      
+            }
+        }
         private void ClearTelaPoligono()
         {
             dgvPontos.DataSource = null;
@@ -144,7 +157,7 @@ namespace Primitivas_Graficas
                 ClearTelaPoligono();
             }
         }
-        private void CbPolignos_SelectedIndexChanged(object sender, EventArgs e)
+        private void ReexibePoligono()
         {
             pontos.Clear();
             ClearTelaPoligono();
@@ -156,15 +169,34 @@ namespace Primitivas_Graficas
                 dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[1].Value = p.Y.ToString();
 
                 pontos.Add(p);
-                if(pontos.Count == 2)
+                if (pontos.Count == 2)
                 {
                     Primitivas.DecliveDDA(pontos[0], pontos[1], pbxPoligonos);
                     pontos[0] = pontos[1];
                     pontos.RemoveAt(1);
-                }                
+                }
             }
-            if(((Poligono)CbPolignos.SelectedItem).Fechado == true) //Se o poligono estiver completo, a ligação do Pi com Pf é feita
-                Primitivas.DecliveDDA(((Poligono)CbPolignos.SelectedItem).Pontos[0], ((Poligono)CbPolignos.SelectedItem).Pontos[((Poligono)CbPolignos.SelectedItem).Pontos.Count-1], pbxPoligonos);
+            if (((Poligono)CbPolignos.SelectedItem).Fechado == true) //Se o poligono estiver completo, a ligação do Pi com Pf é feita
+                Primitivas.DecliveDDA(((Poligono)CbPolignos.SelectedItem).Pontos[0], ((Poligono)CbPolignos.SelectedItem).Pontos[((Poligono)CbPolignos.SelectedItem).Pontos.Count - 1], pbxPoligonos);
+
+        }
+        private void CbPolignos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ReexibePoligono();
+        }
+
+        private void BtTransf_Click(object sender, EventArgs e)
+        {
+            ((Poligono)CbPolignos.SelectedItem).Translada(int.Parse(tbTX.Text), int.Parse(tbTY.Text));
+            ((Poligono)CbPolignos.SelectedItem).AtualizaPontos();
+            ReexibePoligono();
+        }
+
+        private void BtEscala_Click(object sender, EventArgs e)
+        {
+            ((Poligono)CbPolignos.SelectedItem).Escala(int.Parse(tbSX.Text), int.Parse(tbSY.Text));
+            ((Poligono)CbPolignos.SelectedItem).AtualizaPontos();
+            ReexibePoligono();
         }
     }
 }

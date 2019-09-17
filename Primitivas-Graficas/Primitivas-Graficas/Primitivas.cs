@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -249,6 +250,94 @@ namespace Primitivas_Graficas
             }
             pbx.Image = b;
         }
+
+
+        public static void CircGeral(Point p1, PictureBox pbx, double raio)
+        {
+            Bitmap b = new Bitmap(pbx.Image);
+            double x, y = raio;
+            double limite = raio / Math.Sqrt(2);
+            for (x = 0; x <= limite; x++)
+            {
+                Simetria8(b,p1.X, p1.Y, (int)x, (int)y);
+                y = Math.Sqrt(Math.Pow(raio, 2) - Math.Pow(x, 2));
+            }
+
+            pbx.Image = b;
+        }
+
+
+        private static void desenha(Bitmap b, int x, int y)
+        {
+            b.SetPixel((int)x, (int)y, Color.Black);
+        }
+
+        private static void Simetria8(Bitmap data, int cx, int cy, int dx, int dy)
+        {
+            if (Tamanho(data, cx + dy, cy - dx)) // 1o Octante
+                desenha(data, cx + dy, cy - dx);
+            if (Tamanho(data, cx + dx, cy - dy)) // 2o Octante
+                desenha(data, cx + dx, cy - dy);
+            if (Tamanho(data, cx - dx, cy - dy)) // 3o Octante
+                desenha(data, cx - dx, cy - dy);
+            if (Tamanho(data, cx - dy, cy - dx)) // 4o Octante
+                desenha(data, cx - dy, cy - dx);
+            if (Tamanho(data, cx - dy, cy + dx)) // 5o Octante
+                desenha(data, cx - dy, cy + dx);
+            if (Tamanho(data, cx - dx, cy + dy)) // 6o Octante
+                desenha(data, cx - dx, cy + dy);
+            if (Tamanho(data, cx + dx, cy + dy)) // 7o Octante
+                desenha(data, cx + dx, cy + dy);
+            if (Tamanho(data, cx + dy, cy + dx)) // 8o Octante
+                desenha(data, cx + dy, cy + dx);
+        }
+
+        private static bool Tamanho(Bitmap bmp, int x, int y)
+        {
+            return x >= 0 && x < bmp.Width && y >= 0 && y < bmp.Height;
+        }
+
+        public static void CircTrig(Point p1, PictureBox pbx, double raio)
+        {
+            Bitmap b = new Bitmap(pbx.Image);
+            double x, y;
+            for (double ang = 90; ang >= 45; --ang)
+            {
+                x = raio * Math.Cos(ang * 180 / Math.PI);
+                y = raio * Math.Sin(ang * 180 / Math.PI);
+                Simetria8(b, p1.X, p1.Y, (int)x, (int)y);
+            }
+            pbx.Image = b;
+        }
+
+        public static void PontoMedio(Point p1, PictureBox pbx, double raio)
+        {
+            Bitmap b = new Bitmap(pbx.Image);
+            double x = 0, y = raio;
+            double d = 1 - raio;
+            Simetria8(b, p1.X, p1.Y, (int)x, (int)y);
+            while (y > x)
+            {
+                if (d < 0) /* escolhe E */
+                    d += 2 * x + 3;
+                else
+                {  /* escolhe SE */
+ 	                d += 2 * (x - y) +5;
+                    y--;
+                }
+                x++;
+                Simetria8(b, p1.X, p1.Y, (int)x, (int)y); //função de simetria
+            } /* while*/
+            pbx.Image = b;
+        } /*pontomedio*/
+
+
+        public static void Elipse(Point p1, PictureBox pbx, double raio)
+        {
+            double x = 0, y = raio, d = 1 - raio;
+            //double deltaE = 3, in
+        }
+
     }
 
 
@@ -331,6 +420,4 @@ namespace Primitivas_Graficas
         }
 
     }*/
-
-
 }

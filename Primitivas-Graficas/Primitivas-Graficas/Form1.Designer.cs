@@ -54,6 +54,12 @@
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CbPolignos = new System.Windows.Forms.ComboBox();
+            this.tbTX = new System.Windows.Forms.TextBox();
+            this.tbTY = new System.Windows.Forms.TextBox();
+            this.btTransf = new System.Windows.Forms.Button();
+            this.btEscala = new System.Windows.Forms.Button();
+            this.tbSX = new System.Windows.Forms.TextBox();
+            this.tbSY = new System.Windows.Forms.TextBox();
             this.groupBoxRetas.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -126,7 +132,7 @@
             this.groupBox2.Controls.Add(this.groupBoxRetas);
             this.groupBox2.Location = new System.Drawing.Point(9, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(951, 115);
+            this.groupBox2.Size = new System.Drawing.Size(1510, 115);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             // 
@@ -229,7 +235,7 @@
             // 
             this.pbxRetas.Location = new System.Drawing.Point(9, 127);
             this.pbxRetas.Name = "pbxRetas";
-            this.pbxRetas.Size = new System.Drawing.Size(954, 415);
+            this.pbxRetas.Size = new System.Drawing.Size(1510, 622);
             this.pbxRetas.TabIndex = 3;
             this.pbxRetas.TabStop = false;
             this.pbxRetas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbxRetas_MouseClick);
@@ -242,7 +248,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(974, 574);
+            this.tabControl1.Size = new System.Drawing.Size(1533, 781);
             this.tabControl1.TabIndex = 5;
             this.tabControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseClick);
             // 
@@ -254,7 +260,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(966, 548);
+            this.tabPage1.Size = new System.Drawing.Size(1525, 755);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Primitivas";
             // 
@@ -265,7 +271,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(966, 548);
+            this.tabPage2.Size = new System.Drawing.Size(1525, 755);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Poligonos";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -275,7 +281,7 @@
             // 
             this.pbxPoligonos.Location = new System.Drawing.Point(6, 6);
             this.pbxPoligonos.Name = "pbxPoligonos";
-            this.pbxPoligonos.Size = new System.Drawing.Size(789, 536);
+            this.pbxPoligonos.Size = new System.Drawing.Size(1348, 743);
             this.pbxPoligonos.TabIndex = 5;
             this.pbxPoligonos.TabStop = false;
             this.pbxPoligonos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbxPoligonos_MouseClick);
@@ -283,13 +289,19 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.groupBox4.Controls.Add(this.tbSY);
+            this.groupBox4.Controls.Add(this.tbSX);
+            this.groupBox4.Controls.Add(this.btEscala);
+            this.groupBox4.Controls.Add(this.btTransf);
+            this.groupBox4.Controls.Add(this.tbTY);
+            this.groupBox4.Controls.Add(this.tbTX);
             this.groupBox4.Controls.Add(this.BtExcluiPoligno);
             this.groupBox4.Controls.Add(this.BtNovoPoligno);
             this.groupBox4.Controls.Add(this.dgvPontos);
             this.groupBox4.Controls.Add(this.CbPolignos);
-            this.groupBox4.Location = new System.Drawing.Point(801, 3);
+            this.groupBox4.Location = new System.Drawing.Point(1360, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(159, 539);
+            this.groupBox4.Size = new System.Drawing.Size(159, 743);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Poligonos";
@@ -352,12 +364,60 @@
             this.CbPolignos.TabIndex = 0;
             this.CbPolignos.SelectedIndexChanged += new System.EventHandler(this.CbPolignos_SelectedIndexChanged);
             // 
+            // tbTX
+            // 
+            this.tbTX.Location = new System.Drawing.Point(7, 492);
+            this.tbTX.Name = "tbTX";
+            this.tbTX.Size = new System.Drawing.Size(100, 20);
+            this.tbTX.TabIndex = 4;
+            // 
+            // tbTY
+            // 
+            this.tbTY.Location = new System.Drawing.Point(7, 518);
+            this.tbTY.Name = "tbTY";
+            this.tbTY.Size = new System.Drawing.Size(100, 20);
+            this.tbTY.TabIndex = 5;
+            // 
+            // btTransf
+            // 
+            this.btTransf.Location = new System.Drawing.Point(6, 612);
+            this.btTransf.Name = "btTransf";
+            this.btTransf.Size = new System.Drawing.Size(145, 23);
+            this.btTransf.TabIndex = 6;
+            this.btTransf.Text = "Transformar";
+            this.btTransf.UseVisualStyleBackColor = true;
+            this.btTransf.Click += new System.EventHandler(this.BtTransf_Click);
+            // 
+            // btEscala
+            // 
+            this.btEscala.Location = new System.Drawing.Point(6, 641);
+            this.btEscala.Name = "btEscala";
+            this.btEscala.Size = new System.Drawing.Size(145, 23);
+            this.btEscala.TabIndex = 7;
+            this.btEscala.Text = "Escala";
+            this.btEscala.UseVisualStyleBackColor = true;
+            this.btEscala.Click += new System.EventHandler(this.BtEscala_Click);
+            // 
+            // tbSX
+            // 
+            this.tbSX.Location = new System.Drawing.Point(7, 565);
+            this.tbSX.Name = "tbSX";
+            this.tbSX.Size = new System.Drawing.Size(100, 20);
+            this.tbSX.TabIndex = 8;
+            // 
+            // tbSY
+            // 
+            this.tbSY.Location = new System.Drawing.Point(7, 586);
+            this.tbSY.Name = "tbSY";
+            this.tbSY.Size = new System.Drawing.Size(100, 20);
+            this.tbSY.TabIndex = 9;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1003, 597);
+            this.ClientSize = new System.Drawing.Size(1557, 805);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "CG-Primitivas Gráficas";
@@ -375,6 +435,7 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxPoligonos)).EndInit();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPontos)).EndInit();
             this.ResumeLayout(false);
 
@@ -408,6 +469,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Y;
         private System.Windows.Forms.ComboBox CbPolignos;
         private System.Windows.Forms.PictureBox pbxPoligonos;
+        private System.Windows.Forms.Button btTransf;
+        private System.Windows.Forms.TextBox tbTY;
+        private System.Windows.Forms.TextBox tbTX;
+        private System.Windows.Forms.Button btEscala;
+        private System.Windows.Forms.TextBox tbSX;
+        private System.Windows.Forms.TextBox tbSY;
     }
 }
 
