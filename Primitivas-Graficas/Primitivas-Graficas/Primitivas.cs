@@ -214,6 +214,98 @@ namespace Primitivas_Graficas
 
         }
 
+        //Bresenhan Tulio
+        //int x1, int x2, int y1, int y2
+        /*public static void BresenhamTulio(Point a, Point b, PictureBox pbx) /// NAO FUNCIONA AINDA
+        {
+            Bitmap bmp = new Bitmap(pbx.Image);
+            int x1 = a.X, x2 = b.X, y1 = a.Y, y2 = b.Y;
+
+            int dx, dy, incE, incNE, declive, d, x, y;
+
+            dx = (int)(x2 - x1);
+            dy = (int)(y2 - y1);
+            declive = 1;
+
+            if (Math.Abs(dx) > Math.Abs(dy)) // FOR EM RELAÇÃO A X
+            {
+                if (x1 > x2)
+                {
+                    // INVERTE OS PONTOS E REFAZ AS PERGUNTAS
+                    int aux = a.X;
+                    a.X = a.Y;
+                    a.Y = aux;
+                    aux = b.X;
+                    b.X = b.Y;
+                    b.Y = aux;
+
+                    BresenhamTulio(b, a, pbx);
+                }
+                else
+                {
+                    if (dy < 0)
+                    {
+                        // X, -Y
+                        declive = -1;
+                        dy = -dy;
+                    }
+
+                    incE = 2 * dy;
+                    incNE = 2 * dy - 2 * dx;
+                    d = incE - dx;
+
+                    y = (int)y1;
+
+                    for (x = (int)x1; x <= x2; x++)
+                    {
+                        bmp.SetPixel(x, y, Color.Black);
+
+                        if (d < 0)
+                            d += incE;
+                        else
+                        {
+                            d += incNE;
+                            y += declive;
+                        }
+                    }
+                }
+            }
+            else // FOR EM RELAÇÃO A Y
+            {
+                if (y1 > y2)
+                {
+                    BresenhamTulio(a,b, pbx);
+                }
+                else
+                {
+                    if (dx < 0)
+                    {
+                        declive = -1;
+                        dx = -dx;
+                    }
+
+                    incE = 2 * dx;
+                    incNE = 2 * dx - 2 * dy;
+                    d = incE - dy;
+
+                    x = (int)x1;
+                    for (y = (int)y1; y <= y2; ++y)
+                    {
+                        bmp.SetPixel(x, y, Color.Black);
+                        if (d < 0) // escolhe incE
+                            d += incE;
+                        else
+                        {   // escolhe incNE
+                            d += incNE;
+                            x += declive;
+                        }
+                    }
+                }
+            }
+            pbx.Image = bmp;
+
+        }*/
+
         public static void DecliveDDA(Point p1, Point p2, PictureBox pbx)
         {
             Bitmap b = new Bitmap(pbx.Image);
@@ -251,7 +343,6 @@ namespace Primitivas_Graficas
             pbx.Image = b;
         }
 
-
         public static void CircGeral(Point p1, PictureBox pbx, double raio)
         {
             Bitmap b = new Bitmap(pbx.Image);
@@ -259,7 +350,7 @@ namespace Primitivas_Graficas
             double limite = raio / Math.Sqrt(2);
             for (x = 0; x <= limite; x++)
             {
-                Simetria8(b,p1.X, p1.Y, (int)x, (int)y);
+                Simetria8(b, p1.X, p1.Y, (int)x, (int)y);
                 y = Math.Sqrt(Math.Pow(raio, 2) - Math.Pow(x, 2));
             }
 
@@ -322,7 +413,7 @@ namespace Primitivas_Graficas
                     d += 2 * x + 3;
                 else
                 {  /* escolhe SE */
- 	                d += 2 * (x - y) +5;
+                    d += 2 * (x - y) + 5;
                     y--;
                 }
                 x++;
@@ -331,14 +422,71 @@ namespace Primitivas_Graficas
             pbx.Image = b;
         } /*pontomedio*/
 
-
-        public static void Elipse(Point p1, PictureBox pbx, double raio)
+        private static void Simetria4(Bitmap data, int cx, int cy, int dx, int dy)
         {
-            double x = 0, y = raio, d = 1 - raio;
-            //double deltaE = 3, in
+            if (Tamanho(data, cx + dx, cy - dy)) // 1o Quad
+                desenha(data, cx + dx, cy - dy);
+            if (Tamanho(data, cx - dx, cy - dy)) // 2o Quad
+                desenha(data, cx - dx, cy - dy);
+            if (Tamanho(data, cx - dx, cy + dy)) // 3o Quad
+                desenha(data, cx - dx, cy + dy);
+            if (Tamanho(data, cx + dx, cy + dy)) // 4o Quad
+                desenha(data, cx + dx, cy + dy);
+        }
+
+        public static void Elipse(Point a, Point b, PictureBox pbx)
+        {
+            Bitmap data = new Bitmap(pbx.Image);
+            int x, y;
+            double d1, d2;
+
+            int cx = a.X, cy = a.Y;
+            int dy = Math.Abs(a.Y - b.Y), dx = Math.Abs(a.X - b.X);
+            x = 0;
+            y = dy;
+            d1 = dy * dx - dx * dx * dy + dx * dx / 4.0;
+
+            Simetria4(data, cx, cy, x, y);
+            while (dx * dx * (y - 0.5) > dy * dy * (x + 1))
+            {
+                // regiao 1
+                if (d1 < 0)
+                {
+                    d1 += dy * dy * (2 * x + 3);
+                    ++x;
+                }
+                else
+                {
+                    d1 = d1 + dy * dy * (2 * x + 3) + dx * dx * (-2 * y + 2);
+                    x++;
+                    y--;
+                }
+                Simetria4(data, cx, cy, x, y);
+            }
+
+            d2 = dy * dy * (x + 0.5) * (x + 0.5) + dx * dx * (y - 1) * (y - 1) - dx * dx * dy * dy;
+            while (y > 0)
+            {
+                //Região 2
+                if (d2 < 0)
+                {
+                    d2 = d2 + dy * dy * (2 * x + 2) + dx * dx * (-2 * y + 3);
+                    x++;
+                    y--;
+                }
+                else
+                {
+                    d2 = d2 + dx * dx * (-2 * y + 3);
+                    y--;
+                }//end if
+                Simetria4(data, cx, cy, x, y);
+            }
+            pbx.Image = data;
         }
 
     }
+
+}
 
 
     //Bresenhan Tulio
@@ -420,4 +568,3 @@ namespace Primitivas_Graficas
         }
 
     }*/
-}

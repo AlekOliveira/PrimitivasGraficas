@@ -52,7 +52,7 @@ namespace Primitivas_Graficas
                     else if (RbCircReal.Checked)
                     {
                         double raio = Math.Sqrt(Math.Pow(pontos[1].X - pontos[0].X, 2) + Math.Pow(pontos[1].Y - pontos[0].Y, 2));
-                        Primitivas.CircGeral(pontos[0], pbxRetas,raio);
+                        Primitivas.CircGeral(pontos[0], pbxRetas, raio);
                     }
                     else if (RbCircTrig.Checked)
                     {
@@ -64,8 +64,10 @@ namespace Primitivas_Graficas
                         double raio = Math.Sqrt(Math.Pow(pontos[1].X - pontos[0].X, 2) + Math.Pow(pontos[1].Y - pontos[0].Y, 2));
                         Primitivas.PontoMedio(pontos[0], pbxRetas, raio);
                     }
-
-
+                    else if (RbElipMédio.Checked)
+                    {
+                        Primitivas.Elipse(pontos[0], pontos[1], pbxRetas);
+                    }
                     pontos.Clear();
                 }
             }
