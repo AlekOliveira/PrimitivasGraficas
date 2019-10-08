@@ -49,6 +49,7 @@ namespace Primitivas_Graficas
                         Primitivas.DecliveDDA(pontos[0], pontos[1], pbxRetas);
                     else if (RbRetaBresenhan.Checked)
                         Primitivas.Bresenhan(pontos[0], pontos[1], pbxRetas);
+
                     else if (RbCircReal.Checked)
                     {
                         double raio = Math.Sqrt(Math.Pow(pontos[1].X - pontos[0].X, 2) + Math.Pow(pontos[1].Y - pontos[0].Y, 2));
@@ -123,6 +124,7 @@ namespace Primitivas_Graficas
 
                     Primitivas.DecliveDDA(e.Location, Lpoli[pos].Pontos[0], pbxPoligonos);
                     ((Poligono)CbPolignos.SelectedItem).Fechado = true;
+                    ((Poligono)CbPolignos.SelectedItem).pontosAtuais = ((Poligono)CbPolignos.SelectedItem).pontos;
                 }
 
                 if (pontos.Count == 2)
@@ -131,6 +133,11 @@ namespace Primitivas_Graficas
                     pontos[0] = pontos[1]; //O ultimo ponto se transforma em um novo inicial
                     pontos.RemoveAt(1);
                 }
+            }
+
+            if(cbFloodFill.Checked && e.Button == MouseButtons.Left )
+            {
+                ((Poligono)CbPolignos.SelectedItem).floodFill(pbxPoligonos,e.X, e.Y);
             }
         }
         private void ClearTelaPoligono()
@@ -164,7 +171,7 @@ namespace Primitivas_Graficas
             pontos.Clear();
             ClearTelaPoligono();
             Poligono poli = Lpoli.Find(x => x.Rotulo == ((Poligono)CbPolignos.SelectedItem).Rotulo);
-            foreach (Point p in poli.Pontos)
+            foreach (Point p in poli.pontosAtuais)
             {
                 dgvPontos.Rows.Add(p.X.ToString());
                 dgvPontos.Rows[dgvPontos.Rows.Count - 1].Cells[0].Value = p.X.ToString();
@@ -178,8 +185,8 @@ namespace Primitivas_Graficas
                     pontos.RemoveAt(1);
                 }
             }
-            if (((Poligono)CbPolignos.SelectedItem).Fechado == true) //Se o poligono estiver completo, a ligação do Pi com Pf é feita
-                Primitivas.DecliveDDA(((Poligono)CbPolignos.SelectedItem).Pontos[0], ((Poligono)CbPolignos.SelectedItem).Pontos[((Poligono)CbPolignos.SelectedItem).Pontos.Count - 1], pbxPoligonos);
+            if (poli.Fechado == true) //Se o poligono estiver completo, a ligação do Pi com Pf é feita
+                Primitivas.DecliveDDA(poli.pontosAtuais[0], poli.pontosAtuais[poli.pontosAtuais.Count-1], pbxPoligonos);
 
         }
         private void CbPolignos_SelectedIndexChanged(object sender, EventArgs e)
@@ -189,16 +196,91 @@ namespace Primitivas_Graficas
 
         private void BtTransf_Click(object sender, EventArgs e)
         {
-            ((Poligono)CbPolignos.SelectedItem).Translada(int.Parse(tbTX.Text), int.Parse(tbTY.Text));
-            ((Poligono)CbPolignos.SelectedItem).AtualizaPontos();
+            ((Poligono)CbPolignos.SelectedItem).Translada(double.Parse(tbTX.Text), double.Parse(tbTY.Text));            
             ReexibePoligono();
         }
 
         private void BtEscala_Click(object sender, EventArgs e)
         {
-            ((Poligono)CbPolignos.SelectedItem).Escala(int.Parse(tbSX.Text), int.Parse(tbSY.Text));
-            ((Poligono)CbPolignos.SelectedItem).AtualizaPontos();
+            ((Poligono)CbPolignos.SelectedItem).Escala(double.Parse(tbSX.Text), double.Parse(tbSY.Text));            
             ReexibePoligono();
+        }
+
+        private void BtRotacao_Click(object sender, EventArgs e)
+        {
+            if(rbOrigem.Checked)
+                ((Poligono)CbPolignos.SelectedItem).Rotacao(double.Parse(tbRotacao.Text), new Point(0, 0), 'o');
+            else
+            {
+                Poligono pTemp = ((Poligono)CbPolignos.SelectedItem);
+                double Mx = 0, My = 0;
+                for (int i = 0; i < pTemp.pontos.Count; i++)
+                {
+                    Mx += pTemp.pontos[i].X;
+                    My += pTemp.pontos[i].Y;
+                }
+                Mx = Mx / pTemp.pontos.Count;
+                My = My / pTemp.pontos.Count;
+                ((Poligono)CbPolignos.SelectedItem).Rotacao(double.Parse(tbRotacao.Text), new Point((int)Mx, (int)My), 'e');
+            }
+            ReexibePoligono();
+        }
+
+        private void BtCisX_Click(object sender, EventArgs e)
+        {
+            ((Poligono)CbPolignos.SelectedItem).cisalhamentoX(double.Parse(tbCisX.Text));
+            ReexibePoligono();
+            
+        }
+
+        private void BtCisY_Click(object sender, EventArgs e)
+        {
+            ((Poligono)CbPolignos.SelectedItem).cisalhamentoY(double.Parse(tbCisY.Text));
+            ReexibePoligono();
+        }
+
+        private void BtEspX_Click(object sender, EventArgs e)
+        {
+            Poligono pTemp = ((Poligono)CbPolignos.SelectedItem);
+            double Mx = 0, My = 0;
+            for (int i = 0; i < pTemp.pontos.Count; i++)
+            {
+                Mx += pTemp.pontos[i].X;
+                My += pTemp.pontos[i].Y;
+            }
+            Mx = Mx / pTemp.pontos.Count;
+            My = My / pTemp.pontos.Count;
+            ((Poligono)CbPolignos.SelectedItem).espelhamentoX(new Point((int)Mx, (int)My));
+            ReexibePoligono();
+        }
+
+        private void BtEspY_Click(object sender, EventArgs e)
+        {
+            Poligono pTemp = ((Poligono)CbPolignos.SelectedItem);
+            double Mx = 0, My = 0;
+            for (int i = 0; i < pTemp.pontos.Count; i++)
+            {
+                Mx += pTemp.pontos[i].X;
+                My += pTemp.pontos[i].Y;
+            }
+            Mx = Mx / pTemp.pontos.Count;
+            My = My / pTemp.pontos.Count;
+            ((Poligono)CbPolignos.SelectedItem).espelhamentoY(new Point((int)Mx, (int)My));
+            ReexibePoligono();
+        }
+
+        
+
+        private void BtViewPort_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+        private void CbFloodFill_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

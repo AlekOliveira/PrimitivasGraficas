@@ -48,18 +48,44 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pbxPoligonos = new System.Windows.Forms.PictureBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btCisY = new System.Windows.Forms.Button();
+            this.tbCisY = new System.Windows.Forms.TextBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btCisX = new System.Windows.Forms.Button();
+            this.tbCisX = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btRotacao = new System.Windows.Forms.Button();
+            this.tbRotacao = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btEscala = new System.Windows.Forms.Button();
+            this.tbSY = new System.Windows.Forms.TextBox();
+            this.tbSX = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbTX = new System.Windows.Forms.TextBox();
+            this.tbTY = new System.Windows.Forms.TextBox();
+            this.btTransf = new System.Windows.Forms.Button();
             this.BtExcluiPoligno = new System.Windows.Forms.Button();
             this.BtNovoPoligno = new System.Windows.Forms.Button();
             this.dgvPontos = new System.Windows.Forms.DataGridView();
             this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Y = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CbPolignos = new System.Windows.Forms.ComboBox();
-            this.tbTX = new System.Windows.Forms.TextBox();
-            this.tbTY = new System.Windows.Forms.TextBox();
-            this.btTransf = new System.Windows.Forms.Button();
-            this.btEscala = new System.Windows.Forms.Button();
-            this.tbSX = new System.Windows.Forms.TextBox();
-            this.tbSY = new System.Windows.Forms.TextBox();
+            this.rbOrigem = new System.Windows.Forms.RadioButton();
+            this.rbEixo = new System.Windows.Forms.RadioButton();
+            this.btEspX = new System.Windows.Forms.Button();
+            this.btEspY = new System.Windows.Forms.Button();
+            this.tbVPx = new System.Windows.Forms.TextBox();
+            this.tbVPy = new System.Windows.Forms.TextBox();
+            this.btViewPort = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cbFloodFill = new System.Windows.Forms.CheckBox();
             this.groupBoxRetas.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -70,7 +96,14 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxPoligonos)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPontos)).BeginInit();
+            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxRetas
@@ -233,9 +266,10 @@
             // 
             // pbxRetas
             // 
+            this.pbxRetas.BackColor = System.Drawing.Color.White;
             this.pbxRetas.Location = new System.Drawing.Point(9, 127);
             this.pbxRetas.Name = "pbxRetas";
-            this.pbxRetas.Size = new System.Drawing.Size(1510, 622);
+            this.pbxRetas.Size = new System.Drawing.Size(980, 622);
             this.pbxRetas.TabIndex = 3;
             this.pbxRetas.TabStop = false;
             this.pbxRetas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbxRetas_MouseClick);
@@ -248,7 +282,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1533, 781);
+            this.tabControl1.Size = new System.Drawing.Size(1003, 781);
             this.tabControl1.TabIndex = 5;
             this.tabControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseClick);
             // 
@@ -260,7 +294,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1525, 755);
+            this.tabPage1.Size = new System.Drawing.Size(995, 755);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Primitivas";
             // 
@@ -271,7 +305,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1525, 755);
+            this.tabPage2.Size = new System.Drawing.Size(995, 755);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Poligonos";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -279,9 +313,9 @@
             // 
             // pbxPoligonos
             // 
-            this.pbxPoligonos.Location = new System.Drawing.Point(6, 6);
+            this.pbxPoligonos.Location = new System.Drawing.Point(3, 3);
             this.pbxPoligonos.Name = "pbxPoligonos";
-            this.pbxPoligonos.Size = new System.Drawing.Size(1348, 743);
+            this.pbxPoligonos.Size = new System.Drawing.Size(752, 746);
             this.pbxPoligonos.TabIndex = 5;
             this.pbxPoligonos.TabStop = false;
             this.pbxPoligonos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PbxPoligonos_MouseClick);
@@ -289,28 +323,238 @@
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.groupBox4.Controls.Add(this.tbSY);
-            this.groupBox4.Controls.Add(this.tbSX);
-            this.groupBox4.Controls.Add(this.btEscala);
-            this.groupBox4.Controls.Add(this.btTransf);
-            this.groupBox4.Controls.Add(this.tbTY);
-            this.groupBox4.Controls.Add(this.tbTX);
+            this.groupBox4.Controls.Add(this.cbFloodFill);
+            this.groupBox4.Controls.Add(this.groupBox11);
+            this.groupBox4.Controls.Add(this.groupBox10);
+            this.groupBox4.Controls.Add(this.groupBox9);
+            this.groupBox4.Controls.Add(this.groupBox8);
+            this.groupBox4.Controls.Add(this.groupBox7);
+            this.groupBox4.Controls.Add(this.groupBox6);
+            this.groupBox4.Controls.Add(this.groupBox5);
             this.groupBox4.Controls.Add(this.BtExcluiPoligno);
             this.groupBox4.Controls.Add(this.BtNovoPoligno);
             this.groupBox4.Controls.Add(this.dgvPontos);
             this.groupBox4.Controls.Add(this.CbPolignos);
-            this.groupBox4.Location = new System.Drawing.Point(1360, 6);
+            this.groupBox4.Location = new System.Drawing.Point(761, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(159, 743);
+            this.groupBox4.Size = new System.Drawing.Size(228, 743);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Poligonos";
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btCisY);
+            this.groupBox9.Controls.Add(this.tbCisY);
+            this.groupBox9.Location = new System.Drawing.Point(10, 536);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(200, 58);
+            this.groupBox9.TabIndex = 13;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Cisalhamento Y";
+            // 
+            // btCisY
+            // 
+            this.btCisY.Location = new System.Drawing.Point(123, 19);
+            this.btCisY.Name = "btCisY";
+            this.btCisY.Size = new System.Drawing.Size(68, 23);
+            this.btCisY.TabIndex = 7;
+            this.btCisY.Text = "Aplicar";
+            this.btCisY.UseVisualStyleBackColor = true;
+            this.btCisY.Click += new System.EventHandler(this.BtCisY_Click);
+            // 
+            // tbCisY
+            // 
+            this.tbCisY.Location = new System.Drawing.Point(33, 22);
+            this.tbCisY.Name = "tbCisY";
+            this.tbCisY.Size = new System.Drawing.Size(30, 20);
+            this.tbCisY.TabIndex = 8;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.btCisX);
+            this.groupBox8.Controls.Add(this.tbCisX);
+            this.groupBox8.Location = new System.Drawing.Point(10, 472);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(200, 58);
+            this.groupBox8.TabIndex = 12;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Cisalhamento X";
+            // 
+            // btCisX
+            // 
+            this.btCisX.Location = new System.Drawing.Point(123, 19);
+            this.btCisX.Name = "btCisX";
+            this.btCisX.Size = new System.Drawing.Size(68, 23);
+            this.btCisX.TabIndex = 7;
+            this.btCisX.Text = "Aplicar";
+            this.btCisX.UseVisualStyleBackColor = true;
+            this.btCisX.Click += new System.EventHandler(this.BtCisX_Click);
+            // 
+            // tbCisX
+            // 
+            this.tbCisX.Location = new System.Drawing.Point(33, 22);
+            this.tbCisX.Name = "tbCisX";
+            this.tbCisX.Size = new System.Drawing.Size(30, 20);
+            this.tbCisX.TabIndex = 8;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.rbEixo);
+            this.groupBox7.Controls.Add(this.rbOrigem);
+            this.groupBox7.Controls.Add(this.label6);
+            this.groupBox7.Controls.Add(this.btRotacao);
+            this.groupBox7.Controls.Add(this.tbRotacao);
+            this.groupBox7.Location = new System.Drawing.Point(10, 365);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(200, 101);
+            this.groupBox7.TabIndex = 12;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Rotação";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 24);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Ang:";
+            // 
+            // btRotacao
+            // 
+            this.btRotacao.Location = new System.Drawing.Point(123, 19);
+            this.btRotacao.Name = "btRotacao";
+            this.btRotacao.Size = new System.Drawing.Size(68, 23);
+            this.btRotacao.TabIndex = 7;
+            this.btRotacao.Text = "Aplicar";
+            this.btRotacao.UseVisualStyleBackColor = true;
+            this.btRotacao.Click += new System.EventHandler(this.BtRotacao_Click);
+            // 
+            // tbRotacao
+            // 
+            this.tbRotacao.Location = new System.Drawing.Point(45, 22);
+            this.tbRotacao.Name = "tbRotacao";
+            this.tbRotacao.Size = new System.Drawing.Size(30, 20);
+            this.tbRotacao.TabIndex = 8;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label4);
+            this.groupBox6.Controls.Add(this.label3);
+            this.groupBox6.Controls.Add(this.btEscala);
+            this.groupBox6.Controls.Add(this.tbSY);
+            this.groupBox6.Controls.Add(this.tbSX);
+            this.groupBox6.Location = new System.Drawing.Point(10, 301);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(200, 58);
+            this.groupBox6.TabIndex = 11;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Escala";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(69, 24);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Y:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 24);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(17, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "X:";
+            // 
+            // btEscala
+            // 
+            this.btEscala.Location = new System.Drawing.Point(123, 19);
+            this.btEscala.Name = "btEscala";
+            this.btEscala.Size = new System.Drawing.Size(68, 23);
+            this.btEscala.TabIndex = 7;
+            this.btEscala.Text = "Aplicar";
+            this.btEscala.UseVisualStyleBackColor = true;
+            this.btEscala.Click += new System.EventHandler(this.BtEscala_Click);
+            // 
+            // tbSY
+            // 
+            this.tbSY.Location = new System.Drawing.Point(87, 22);
+            this.tbSY.Name = "tbSY";
+            this.tbSY.Size = new System.Drawing.Size(30, 20);
+            this.tbSY.TabIndex = 9;
+            // 
+            // tbSX
+            // 
+            this.tbSX.Location = new System.Drawing.Point(33, 22);
+            this.tbSX.Name = "tbSX";
+            this.tbSX.Size = new System.Drawing.Size(30, 20);
+            this.tbSX.TabIndex = 8;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.label1);
+            this.groupBox5.Controls.Add(this.tbTX);
+            this.groupBox5.Controls.Add(this.tbTY);
+            this.groupBox5.Controls.Add(this.btTransf);
+            this.groupBox5.Location = new System.Drawing.Point(8, 232);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(200, 63);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Translação";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(71, 32);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(17, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Y:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(17, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "X:";
+            // 
+            // tbTX
+            // 
+            this.tbTX.Location = new System.Drawing.Point(35, 29);
+            this.tbTX.Name = "tbTX";
+            this.tbTX.Size = new System.Drawing.Size(30, 20);
+            this.tbTX.TabIndex = 4;
+            // 
+            // tbTY
+            // 
+            this.tbTY.Location = new System.Drawing.Point(89, 29);
+            this.tbTY.Name = "tbTY";
+            this.tbTY.Size = new System.Drawing.Size(30, 20);
+            this.tbTY.TabIndex = 5;
+            // 
+            // btTransf
+            // 
+            this.btTransf.Location = new System.Drawing.Point(125, 27);
+            this.btTransf.Name = "btTransf";
+            this.btTransf.Size = new System.Drawing.Size(69, 23);
+            this.btTransf.TabIndex = 6;
+            this.btTransf.Text = "Aplicar";
+            this.btTransf.UseVisualStyleBackColor = true;
+            this.btTransf.Click += new System.EventHandler(this.BtTransf_Click);
+            // 
             // BtExcluiPoligno
             // 
-            this.BtExcluiPoligno.Location = new System.Drawing.Point(7, 441);
+            this.BtExcluiPoligno.Location = new System.Drawing.Point(117, 105);
             this.BtExcluiPoligno.Name = "BtExcluiPoligno";
-            this.BtExcluiPoligno.Size = new System.Drawing.Size(145, 23);
+            this.BtExcluiPoligno.Size = new System.Drawing.Size(93, 23);
             this.BtExcluiPoligno.TabIndex = 3;
             this.BtExcluiPoligno.Text = "Excluir";
             this.BtExcluiPoligno.UseVisualStyleBackColor = true;
@@ -318,9 +562,9 @@
             // 
             // BtNovoPoligno
             // 
-            this.BtNovoPoligno.Location = new System.Drawing.Point(7, 412);
+            this.BtNovoPoligno.Location = new System.Drawing.Point(117, 76);
             this.BtNovoPoligno.Name = "BtNovoPoligno";
-            this.BtNovoPoligno.Size = new System.Drawing.Size(145, 23);
+            this.BtNovoPoligno.Size = new System.Drawing.Size(93, 23);
             this.BtNovoPoligno.TabIndex = 2;
             this.BtNovoPoligno.Text = "Novo";
             this.BtNovoPoligno.UseVisualStyleBackColor = true;
@@ -334,11 +578,11 @@
             this.dgvPontos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.X,
             this.Y});
-            this.dgvPontos.Location = new System.Drawing.Point(6, 121);
+            this.dgvPontos.Location = new System.Drawing.Point(8, 49);
             this.dgvPontos.Name = "dgvPontos";
             this.dgvPontos.ReadOnly = true;
             this.dgvPontos.RowHeadersVisible = false;
-            this.dgvPontos.Size = new System.Drawing.Size(146, 284);
+            this.dgvPontos.Size = new System.Drawing.Size(89, 159);
             this.dgvPontos.TabIndex = 1;
             // 
             // X
@@ -358,66 +602,118 @@
             // CbPolignos
             // 
             this.CbPolignos.FormattingEnabled = true;
-            this.CbPolignos.Location = new System.Drawing.Point(7, 20);
+            this.CbPolignos.Location = new System.Drawing.Point(117, 49);
             this.CbPolignos.Name = "CbPolignos";
-            this.CbPolignos.Size = new System.Drawing.Size(146, 21);
+            this.CbPolignos.Size = new System.Drawing.Size(93, 21);
             this.CbPolignos.TabIndex = 0;
             this.CbPolignos.SelectedIndexChanged += new System.EventHandler(this.CbPolignos_SelectedIndexChanged);
             // 
-            // tbTX
+            // rbOrigem
             // 
-            this.tbTX.Location = new System.Drawing.Point(7, 492);
-            this.tbTX.Name = "tbTX";
-            this.tbTX.Size = new System.Drawing.Size(100, 20);
-            this.tbTX.TabIndex = 4;
+            this.rbOrigem.AutoSize = true;
+            this.rbOrigem.Checked = true;
+            this.rbOrigem.Location = new System.Drawing.Point(13, 48);
+            this.rbOrigem.Name = "rbOrigem";
+            this.rbOrigem.Size = new System.Drawing.Size(58, 17);
+            this.rbOrigem.TabIndex = 10;
+            this.rbOrigem.TabStop = true;
+            this.rbOrigem.Text = "Origem";
+            this.rbOrigem.UseVisualStyleBackColor = true;
             // 
-            // tbTY
+            // rbEixo
             // 
-            this.tbTY.Location = new System.Drawing.Point(7, 518);
-            this.tbTY.Name = "tbTY";
-            this.tbTY.Size = new System.Drawing.Size(100, 20);
-            this.tbTY.TabIndex = 5;
+            this.rbEixo.AutoSize = true;
+            this.rbEixo.Location = new System.Drawing.Point(13, 71);
+            this.rbEixo.Name = "rbEixo";
+            this.rbEixo.Size = new System.Drawing.Size(45, 17);
+            this.rbEixo.TabIndex = 11;
+            this.rbEixo.Text = "Eixo";
+            this.rbEixo.UseVisualStyleBackColor = true;
             // 
-            // btTransf
+            // btEspX
             // 
-            this.btTransf.Location = new System.Drawing.Point(6, 612);
-            this.btTransf.Name = "btTransf";
-            this.btTransf.Size = new System.Drawing.Size(145, 23);
-            this.btTransf.TabIndex = 6;
-            this.btTransf.Text = "Transformar";
-            this.btTransf.UseVisualStyleBackColor = true;
-            this.btTransf.Click += new System.EventHandler(this.BtTransf_Click);
+            this.btEspX.Location = new System.Drawing.Point(6, 19);
+            this.btEspX.Name = "btEspX";
+            this.btEspX.Size = new System.Drawing.Size(88, 23);
+            this.btEspX.TabIndex = 9;
+            this.btEspX.Text = "Espelhar em X";
+            this.btEspX.UseVisualStyleBackColor = true;
+            this.btEspX.Click += new System.EventHandler(this.BtEspX_Click);
             // 
-            // btEscala
+            // btEspY
             // 
-            this.btEscala.Location = new System.Drawing.Point(6, 641);
-            this.btEscala.Name = "btEscala";
-            this.btEscala.Size = new System.Drawing.Size(145, 23);
-            this.btEscala.TabIndex = 7;
-            this.btEscala.Text = "Escala";
-            this.btEscala.UseVisualStyleBackColor = true;
-            this.btEscala.Click += new System.EventHandler(this.BtEscala_Click);
+            this.btEspY.Location = new System.Drawing.Point(100, 19);
+            this.btEspY.Name = "btEspY";
+            this.btEspY.Size = new System.Drawing.Size(88, 23);
+            this.btEspY.TabIndex = 14;
+            this.btEspY.Text = "Espelhar em Y";
+            this.btEspY.UseVisualStyleBackColor = true;
+            this.btEspY.Click += new System.EventHandler(this.BtEspY_Click);
             // 
-            // tbSX
+            // tbVPx
             // 
-            this.tbSX.Location = new System.Drawing.Point(7, 565);
-            this.tbSX.Name = "tbSX";
-            this.tbSX.Size = new System.Drawing.Size(100, 20);
-            this.tbSX.TabIndex = 8;
+            this.tbVPx.Location = new System.Drawing.Point(6, 19);
+            this.tbVPx.Name = "tbVPx";
+            this.tbVPx.Size = new System.Drawing.Size(30, 20);
+            this.tbVPx.TabIndex = 9;
             // 
-            // tbSY
+            // tbVPy
             // 
-            this.tbSY.Location = new System.Drawing.Point(7, 586);
-            this.tbSY.Name = "tbSY";
-            this.tbSY.Size = new System.Drawing.Size(100, 20);
-            this.tbSY.TabIndex = 9;
+            this.tbVPy.Location = new System.Drawing.Point(49, 19);
+            this.tbVPy.Name = "tbVPy";
+            this.tbVPy.Size = new System.Drawing.Size(30, 20);
+            this.tbVPy.TabIndex = 15;
+            // 
+            // btViewPort
+            // 
+            this.btViewPort.Location = new System.Drawing.Point(100, 16);
+            this.btViewPort.Name = "btViewPort";
+            this.btViewPort.Size = new System.Drawing.Size(88, 23);
+            this.btViewPort.TabIndex = 16;
+            this.btViewPort.Text = "Aplicar";
+            this.btViewPort.UseVisualStyleBackColor = true;
+            this.btViewPort.Click += new System.EventHandler(this.BtViewPort_Click);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.btEspX);
+            this.groupBox10.Controls.Add(this.btEspY);
+            this.groupBox10.Location = new System.Drawing.Point(10, 600);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(200, 57);
+            this.groupBox10.TabIndex = 17;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Espelhamento";
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.btViewPort);
+            this.groupBox11.Controls.Add(this.tbVPx);
+            this.groupBox11.Controls.Add(this.tbVPy);
+            this.groupBox11.Location = new System.Drawing.Point(10, 663);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(200, 61);
+            this.groupBox11.TabIndex = 18;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "ViewPort (Larg, Alt)";
+            // 
+            // cbFloodFill
+            // 
+            this.cbFloodFill.AutoSize = true;
+            this.cbFloodFill.Location = new System.Drawing.Point(117, 154);
+            this.cbFloodFill.Name = "cbFloodFill";
+            this.cbFloodFill.Size = new System.Drawing.Size(64, 17);
+            this.cbFloodFill.TabIndex = 20;
+            this.cbFloodFill.Text = "FloodFill";
+            this.cbFloodFill.UseVisualStyleBackColor = true;
+            this.cbFloodFill.CheckedChanged += new System.EventHandler(this.CbFloodFill_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1557, 805);
+            this.ClientSize = new System.Drawing.Size(1021, 805);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "CG-Primitivas Gráficas";
@@ -436,7 +732,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbxPoligonos)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPontos)).EndInit();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -475,6 +784,32 @@
         private System.Windows.Forms.Button btEscala;
         private System.Windows.Forms.TextBox tbSX;
         private System.Windows.Forms.TextBox tbSY;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btRotacao;
+        private System.Windows.Forms.TextBox tbRotacao;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button btCisX;
+        private System.Windows.Forms.TextBox tbCisX;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Button btCisY;
+        private System.Windows.Forms.TextBox tbCisY;
+        private System.Windows.Forms.RadioButton rbEixo;
+        private System.Windows.Forms.RadioButton rbOrigem;
+        private System.Windows.Forms.Button btEspY;
+        private System.Windows.Forms.Button btEspX;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button btViewPort;
+        private System.Windows.Forms.TextBox tbVPx;
+        private System.Windows.Forms.TextBox tbVPy;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.CheckBox cbFloodFill;
     }
 }
 

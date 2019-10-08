@@ -142,169 +142,71 @@ namespace Primitivas_Graficas
         public static void Bresenhan(Point p1, Point p2, PictureBox pbx)
         {
             Bitmap b = new Bitmap(pbx.Image);
-            int declive;
+            int declive = 1;
             int dx, dy, incNE, incE, d, x, y;
             dx = p2.X - p1.X;
             dy = p2.Y - p1.Y;
-            if (Math.Abs(dx) >= Math.Abs(dy))
+            if (Math.Abs(dx) > Math.Abs(dy))
             {
-                if (p2.X < p1.X)
-                    Bresenhan(p2, p1, pbx);
-                else
+                if (p1.X > p2.X)
                 {
-                    if (dy <= 0)
-                    {
-                        declive = -1;
-                        dy = -dy;
-                    }
+                    Bresenhan(p2, p1, pbx);
+                    return;
+                }
+                if (p1.Y > p2.Y)
+                {
+                    declive = -1;
+                    dy = -dy;
+                }
+                incE = 2 * dy;
+                incNE = 2 * (dy - dx);
+                d = incNE;
+                y = p1.Y;
+                for (x = p1.X; x <= p2.X; ++x)
+                {
+                    b.SetPixel(x, y, Color.Coral);
+                    if (d < 0)
+                        d += incE;
                     else
-                        declive = 1;
-                    incE = 2 * dy;
-                    incNE = 2 * dy - 2 * dx; ;
-                    d = 2 * dy - dx;
-                    y = p1.Y;
-                    for (x = p1.X; x <= p2.X; x++)
                     {
-                        b.SetPixel(x, y, Color.Coral);
-                        if (d <= 0)
-                            d += incE;
-                        else
-                        {
-                            d += incNE;
-                            y += declive;
-                        }
+                        d += incNE;
+                        y += declive;
                     }
-
                 }
             }
             else
             {
-                if (p2.Y < p1.Y)
-                    Bresenhan(p2, p1, pbx);
-                else
+                if (p1.Y > p2.Y)
                 {
-                    if (dx < 0)
-                    {
-                        declive = -1;
-                        dx = -dy;
-                    }
-                    else
-                        declive = 1;
-                    incE = 2 * dx;
-                    incNE = 2 * dx - 2 * dy;
-                    d = 2 * dx - dy;
-                    x = p1.X;
-                    for (y = p1.Y; y <= p2.Y; y++)
-                    {
-                        b.SetPixel(x, y, Color.Coral);
-                        if (d <= 0)
-                            d += incE;
-                        else
-                        {
-                            d += incNE;
-                            x += declive;
-                        }
-                    }
-
+                    Bresenhan(p2, p1, pbx);
+                    return;
                 }
 
+                if (p1.X > p2.X)
+                {
+                    declive = -1;
+                    dx = -dx;
+                }
 
+                incE = 2 * dx;
+                incNE = 2 * (dx - dy);
+                d = incNE;
+                x = p1.X;
+                for (y = p1.Y; y <= p2.Y; ++y)
+                {
+                    b.SetPixel(x, y, Color.Coral);
+                    if (d < 0)
+                        d += incE;
+                    else
+                    {
+                        d += incNE;
+                        x += declive;
+                    }
+                }
             }
             pbx.Image = b;
-
         }
 
-        //Bresenhan Tulio
-        //int x1, int x2, int y1, int y2
-        /*public static void BresenhamTulio(Point a, Point b, PictureBox pbx) /// NAO FUNCIONA AINDA
-        {
-            Bitmap bmp = new Bitmap(pbx.Image);
-            int x1 = a.X, x2 = b.X, y1 = a.Y, y2 = b.Y;
-
-            int dx, dy, incE, incNE, declive, d, x, y;
-
-            dx = (int)(x2 - x1);
-            dy = (int)(y2 - y1);
-            declive = 1;
-
-            if (Math.Abs(dx) > Math.Abs(dy)) // FOR EM RELAÇÃO A X
-            {
-                if (x1 > x2)
-                {
-                    // INVERTE OS PONTOS E REFAZ AS PERGUNTAS
-                    int aux = a.X;
-                    a.X = a.Y;
-                    a.Y = aux;
-                    aux = b.X;
-                    b.X = b.Y;
-                    b.Y = aux;
-
-                    BresenhamTulio(b, a, pbx);
-                }
-                else
-                {
-                    if (dy < 0)
-                    {
-                        // X, -Y
-                        declive = -1;
-                        dy = -dy;
-                    }
-
-                    incE = 2 * dy;
-                    incNE = 2 * dy - 2 * dx;
-                    d = incE - dx;
-
-                    y = (int)y1;
-
-                    for (x = (int)x1; x <= x2; x++)
-                    {
-                        bmp.SetPixel(x, y, Color.Black);
-
-                        if (d < 0)
-                            d += incE;
-                        else
-                        {
-                            d += incNE;
-                            y += declive;
-                        }
-                    }
-                }
-            }
-            else // FOR EM RELAÇÃO A Y
-            {
-                if (y1 > y2)
-                {
-                    BresenhamTulio(a,b, pbx);
-                }
-                else
-                {
-                    if (dx < 0)
-                    {
-                        declive = -1;
-                        dx = -dx;
-                    }
-
-                    incE = 2 * dx;
-                    incNE = 2 * dx - 2 * dy;
-                    d = incE - dy;
-
-                    x = (int)x1;
-                    for (y = (int)y1; y <= y2; ++y)
-                    {
-                        bmp.SetPixel(x, y, Color.Black);
-                        if (d < 0) // escolhe incE
-                            d += incE;
-                        else
-                        {   // escolhe incNE
-                            d += incNE;
-                            x += declive;
-                        }
-                    }
-                }
-            }
-            pbx.Image = bmp;
-
-        }*/
 
         public static void DecliveDDA(Point p1, Point p2, PictureBox pbx)
         {
@@ -324,9 +226,17 @@ namespace Primitivas_Graficas
             if (p1.X == p2.X)
             {
                 for (Y = p1.Y; Y <= p2.Y; Y++)
-                    b.SetPixel((int)p1.X, (int)Y, Color.Black);
+                {
+                    if ((int)p1.X >= 0 && (int)p1.X < pbx.Width && (int)Y >= 0 && (int)Y < pbx.Height)
+                        b.SetPixel((int)p1.X, (int)Y, Color.Black);
+                }
+                    
                 for (Y = p1.Y; Y >= p2.Y; Y--)
-                    b.SetPixel((int)p1.X, (int)Y, Color.Black);
+                {
+                    if ((int)p1.X >= 0 && (int)p1.X < pbx.Width && (int)Y >= 0 && (int)Y < pbx.Height)
+                        b.SetPixel((int)p1.X, (int)Y, Color.Black);
+                }
+                    
             }
             else
             {
@@ -335,7 +245,8 @@ namespace Primitivas_Graficas
                 X = p1.X; Y = p1.Y;
                 while (X < p2.X)
                 {
-                    b.SetPixel((int)Math.Round(X), (int)Math.Round(Y), Color.Black);
+                    if(Math.Round(X) >= 0 && Math.Round(X) < pbx.Width && Math.Round(Y) >= 0 && Math.Round(Y) < pbx.Height)
+                        b.SetPixel((int)Math.Round(X), (int)Math.Round(Y), Color.Black);
                     X = X + Xinc;
                     Y = Y + Yinc;
                 }
@@ -356,7 +267,6 @@ namespace Primitivas_Graficas
 
             pbx.Image = b;
         }
-
 
         private static void desenha(Bitmap b, int x, int y)
         {
@@ -392,7 +302,7 @@ namespace Primitivas_Graficas
         {
             Bitmap b = new Bitmap(pbx.Image);
             double x, y;
-            for (double ang = 90; ang >= 45; --ang)
+            for (double ang = 90; ang >= 45; ang = ang-0.1)
             {
                 x = raio * Math.Cos(ang * 180 / Math.PI);
                 y = raio * Math.Sin(ang * 180 / Math.PI);
@@ -482,89 +392,9 @@ namespace Primitivas_Graficas
                 Simetria4(data, cx, cy, x, y);
             }
             pbx.Image = data;
-        }
-
-    }
-
+        }  
+    } 
 }
 
 
-    //Bresenhan Tulio
-    /*private void BresenhamTulio(int x1, int x2, int y1, int y2, Bitmap bmp) /// NAO FUNCIONA AINDA
-    {
-        int dx, dy, incE, incNE, declive, d, x, y;
-
-        dx = (int)(x2 - x1);
-        dy = (int)(y2 - y1);
-        declive = 1;
-
-        if (Math.Abs(dx) > Math.Abs(dy)) // FOR EM RELAÇÃO A X
-        {
-            if (x1 > x2)
-            {
-                // INVERTE OS PONTOS E REFAZ AS PERGUNTAS
-                BresenhamTulio(x2, x1, y2, y1, bmp);
-            }
-            else
-            {
-                if (dy < 0)
-                {
-                    // X, -Y
-                    declive = -1;
-                    dy = -dy;
-                }
-
-                incE = 2 * dy;
-                incNE = 2 * dy - 2 * dx;
-                d = incE - dx;
-
-                y = (int)y1;
-
-                for (x = (int)x1; x <= x2; x++)
-                {
-                    bmp.SetPixel(x, y, Color.Black);
-
-                    if (d < 0)
-                        d += incE;
-                    else
-                    {
-                        d += incNE;
-                        y += declive;
-                    }
-                }
-            }
-        }
-        else // FOR EM RELAÇÃO A Y
-        {
-            if (y1 > y2)
-            {
-                BresenhamTulio(x2, x1, y2, y1, bmp);
-            }
-            else
-            {
-                if (dx < 0)
-                {
-                    declive = -1;
-                    dx = -dx;
-                }
-
-                incE = 2 * dx;
-                incNE = 2 * dx - 2 * dy;
-                d = incE - dy;
-
-                x = (int)x1;
-                for (y = (int)y1; y <= y2; ++y)
-                {
-                    bmp.SetPixel(x, y, Color.Black);
-                    if (d < 0) // escolhe incE
-                        d += incE;
-                    else
-                    {   // escolhe incNE
-                        d += incNE;
-                        x += declive;
-                    }
-                }
-            }
-        }
-
-    }*/
+    
